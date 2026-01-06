@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Opinion Dropdown UI</title>
+
+    <style>
+      :root {
+        --positive: #6ccf8e;
+        --neutral: #b0b7c3;
+        --negative: #ff8b8b;
+        --border: #e5e7eb;
+      }
+
+      * {
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      body {
+        margin: 0;
+        padding: 40px;
+        background: url(./colorful.jpg);
+      }
+
+      .wrapper {
+        max-width: 900px;
+        margin: auto;
+      }
+
+      /* Opinion Card */
+      .opinion {
+        background: #fff;
+        border-radius: 12px;
+        margin-bottom: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+      }
+
+      .opinion-header {
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+      }
+
+      .left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .score {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 3px solid var(--negative);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      .score.positive {
+        border-color: var(--positive);
+      }
+
+      .title {
+        font-weight: 600;
+      }
+
+      .stats {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 14px;
+        color: #555;
+      }
+
+      .stat {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      /* Dropdown arrow */
+      .arrow {
+        margin-left: 12px;
+        font-size: 18px;
+        transition: transform 0.3s ease;
+      }
+
+      /* Content */
+      .opinion-content {
+        padding: 20px;
+        display: none;
+        border-top: 1px solid var(--border);
+        gap: 16px;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .opinion.open .opinion-content {
+        display: grid;
+      }
+
+      .opinion.open .arrow {
+        transform: rotate(180deg);
+      }
+
+      /* Sentiment cards */
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 14px;
+      }
+
+      .card h4 {
+        margin: 0 0 10px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .card p {
+        font-size: 14px;
+        color: #555;
+        line-height: 1.5;
+      }
+
+      /* Icons */
+      .icon {
+        font-size: 18px;
+      }
+
+      .positive {
+        color: var(--positive);
+      }
+      .neutral {
+        color: var(--neutral);
+      }
+      .negative {
+        color: var(--negative);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .opinion-content {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <!-- Item 1 -->
+      <div class="opinion">
+        <div class="opinion-header">
+          <div class="left">
+            <div class="score">-69</div>
+            <div class="title">Lorem ipsum</div>
+          </div>
+          <div class="stats">
+            <span>18 opinion</span>
+            <span class="stat positive">🙂 4</span>
+            <span class="stat neutral">😐 1</span>
+            <span class="stat negative">☹️ 13</span>
+            <span class="arrow">⌄</span>
+          </div>
+        </div>
+
+        <div class="opinion-content">
+          <div class="card">
+            <h4 class="positive">🙂 Positive</h4>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+          <div class="card">
+            <h4 class="neutral">😐 Neutral</h4>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+          <div class="card">
+            <h4 class="negative">☹️ Negative</h4>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 2 (Opened like photo) -->
+      <div class="opinion open">
+        <div class="opinion-header">
+          <div class="left">
+            <div class="score positive">58</div>
+            <div class="title">Lorem ipsum dolor sit amet</div>
+          </div>
+          <div class="stats">
+            <span>22 opinion</span>
+            <span class="stat positive">🙂 12</span>
+            <span class="stat neutral">😐 5</span>
+            <span class="stat negative">☹️ 5</span>
+            <span class="arrow">⌄</span>
+          </div>
+        </div>
+
+        <div class="opinion-content">
+          <div class="card">
+            <h4 class="positive">🙂 Positive</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </div>
+          <div class="card">
+            <h4 class="neutral">😐 Neutral</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </div>
+          <div class="card">
+            <h4 class="negative">☹️ Negative</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="opinion">
+        <div class="opinion-header">
+          <div class="left">
+            <div class="score positive">33</div>
+            <div class="title">Lorem</div>
+          </div>
+          <div class="stats">
+            <span>7 opinion</span>
+            <span class="stat positive">🙂 3</span>
+            <span class="stat neutral">😐 2</span>
+            <span class="stat negative">☹️ 2</span>
+            <span class="arrow">⌄</span>
+          </div>
+        </div>
+
+        <div class="opinion-content">
+          <div class="card">
+            <h4 class="positive">🙂 Positive</h4>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+          <div class="card">
+            <h4 class="neutral">😐 Neutral</h4>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+          <div class="card">
+            <h4 class="negative">☹️ Negative</h4>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.querySelectorAll(".opinion-header").forEach((header) => {
+        header.addEventListener("click", () => {
+          header.parentElement.classList.toggle("open");
+        });
+      });
+    </script>
+  </body>
+</html>

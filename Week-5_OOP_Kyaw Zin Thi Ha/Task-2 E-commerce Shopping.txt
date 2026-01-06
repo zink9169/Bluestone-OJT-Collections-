@@ -1,0 +1,63 @@
+class Product {
+    String id;
+    String name;
+    double price;
+    int stock;
+}
+
+abstract class User {
+    String id;
+    String name;
+}
+
+
+class Admin extends User {
+
+    void addProduct() { }
+
+    void updateProductStock() { }
+
+    void viewProducts() { }
+
+    void logout() { }
+}
+
+class Customer extends User {
+
+    void viewProducts() { }
+
+    void addToCart() { }
+
+    void removeFromCart() { }
+
+    void viewCart() { }
+
+    void checkout() { }
+
+    void logout() { }
+}
+
+class ShoppingCart {
+
+    void addProduct() { }
+
+    void removeProduct() { }
+
+    void viewCart() { }
+
+    void checkout() { }
+}
+
+class Main {
+
+    void showMainMenu() { }
+
+    void adminMenu() { }
+
+    void customerMenu() { }
+
+    public static void main(String[] args) {
+        
+    }
+}
+

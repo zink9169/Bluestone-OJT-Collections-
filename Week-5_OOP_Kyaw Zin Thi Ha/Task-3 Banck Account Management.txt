@@ -1,0 +1,53 @@
+abstract class Account {
+    String accountNumber;
+    String holderName;
+    double balance;
+
+    void openAccount() { }
+
+    void closeAccount() { }
+
+    void deposit() { }
+
+    void withdraw() { }
+
+    void displayAccountInfo() { }
+}
+
+class SavingsAccount extends Account {
+
+    void addInterest() { }   // 8% monthly
+}
+
+class DepositAccount extends Account {
+
+    void addInterest() { }   // 7% monthly
+}
+
+class Bank {
+
+    void openAccount() { }
+
+    void closeAccount() { }
+
+    void findAccount() { }
+
+    void transferFunds() { }
+
+    void depositMoney() { }
+
+    void withdrawMoney() { }
+
+    void displayAccountInfo() { }
+
+    void addInterestToSavingsAccounts() { }
+}
+
+class Main {
+
+    void showMenu() { }
+
+    public static void main(String[] args) {
+        // menu handling
+    }
+}

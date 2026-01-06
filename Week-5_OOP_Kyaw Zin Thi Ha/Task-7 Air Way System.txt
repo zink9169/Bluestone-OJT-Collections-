@@ -1,0 +1,112 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
+
+abstract class Person {
+    String name;
+    String email;
+    String passportId;
+}
+
+class Passenger extends Person {
+    List<String> ticketIds;
+
+    void searchFlights() { }
+    void bookTicket() { }
+    void cancelTicket() { }
+    void viewMyBookings() { }
+}
+
+abstract class AirlineStaff extends Person {
+    String staffId;
+}
+
+class Admin extends AirlineStaff {
+    void addFlight() { }
+    void addAircraft() { }
+    void viewAllTickets() { }
+}
+
+class CheckInAgent extends AirlineStaff {
+    void checkInPassenger() { }
+    void assignSeat() { }
+}
+
+class Pilot extends AirlineStaff {
+    void viewAssignedFlights() { }
+}
+
+class Route {
+    String routeId;
+    String origin;
+    String destination;
+    double distanceKm;
+    String estimatedTime;
+
+    void calculateFlightDuration() { }
+}
+
+class Aircraft {
+    String aircraftId;
+    String model;
+    Map<String, Boolean> seatMap;
+    int capacity;
+
+    void assignSeats() { }
+    void getAvailableSeats() { }
+}
+
+class Flight {
+    String flightId;
+    String origin;
+    String destination;
+    LocalDateTime departureTime;
+    LocalDateTime arrivalTime;
+    String aircraftId;
+    List<String> passengerManifest;
+    String status;
+
+    void addPassenger() { }
+    void cancelPassenger() { }
+    void checkSeatAvailability() { }
+}
+
+class Ticket {
+    String ticketId;
+    String passengerPassportId;
+    String flightId;
+    String seatNumber;
+    String status;
+
+    void generateTicket() { }
+    void cancelTicket() { }
+    void rescheduleTicket() { }
+}
+
+class ReservationSystem {
+    Map<String, Person> users;
+    Map<String, Flight> flights;
+    Map<String, Route> routes;
+    Map<String, Ticket> tickets;
+    Map<String, Aircraft> aircrafts;
+
+    void searchFlights(String origin, String destination, LocalDate date) { }
+    void bookTicket(String passengerPassportId, String flightId) { }
+    void cancelTicket(String ticketId) { }
+
+    void addFlight() { }
+    void addAircraft() { }
+
+    void generateReports() { }
+}
+
+class Main {
+    void welcomeMenu() { }
+    void passengerMenu() { }
+    void checkInAgentMenu() { }
+    void adminMenu() { }
+
+    public static void main(String[] args) {
+        // menu handling
+    }
+}

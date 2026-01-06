@@ -1,0 +1,101 @@
+import java.time.LocalDateTime;
+import java.util.*;
+
+abstract class User {
+    String userId;
+    String name;
+    String email;
+    String role;
+
+    abstract void getPermissions();
+}
+
+class AdminUser extends User {
+    void getPermissions() { }
+
+    void addUser() { }
+    void updateUser() { }
+    void removeUser() { }
+
+    void createProject() { }
+    void updateProject() { }
+    void deleteProject() { }
+
+    void createTask() { }
+    void updateTask() { }
+    void deleteTask() { }
+}
+
+class ManagerUser extends User {
+    void getPermissions() { }
+
+    void createProject() { }
+    void assignTask() { }
+    void addMemberToProject() { }
+}
+
+class DeveloperUser extends User {
+    void getPermissions() { }
+
+    void updateOwnTaskStatus() { }
+    void logHours() { }
+    void addCommentToOwnTask() { }
+}
+
+class Project {
+    String projectId;
+    String title;
+    String description;
+    String managerId;
+    List<String> memberIds;
+    List<Task> tasks;
+
+    void addTask() { }
+    void assignUser() { }
+    void getProgress() { }
+}
+
+class Task {
+    String taskId;
+    String title;
+    String status;
+    String priority;
+    String assignedToUserId;
+    double timeLogged;
+    List<Comment> comments;
+
+    void updateStatus() { }
+    void addComment() { }
+    void logTime() { }
+}
+
+class Comment {
+    String commentId;
+    String userId;
+    String content;
+    LocalDateTime timestamp;
+}
+
+class TaskBoard {
+    void groupTasksByStatus() { }
+    void filterTasksByUser() { }
+    void generateReport() { }
+}
+
+class ProjectManagerSystem {
+    Map<String, User> users;
+    Map<String, Project> projects;
+
+    void authenticate() { }
+    void addUser() { }
+    void assignRole() { }
+
+    void createProject() { }
+    void assignUserToProject() { }
+
+    void createTask() { }
+    void assignTaskToUser() { }
+    void updateTask() { }
+
+    void generateReport() { }
+}

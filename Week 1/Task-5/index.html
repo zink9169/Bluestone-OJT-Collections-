@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Grid Layout</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+        padding: 20px;
+      }
+
+      /* COMMON BOX */
+      .box {
+        background: #e0e0e0;
+        border-radius: 4px;
+      }
+
+      /* =====================
+       DESKTOP GRID
+    ===================== */
+      .container {
+        max-width: 1200px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+
+      /* Desktop layout */
+      .banner {
+        grid-column: 1 / -1;
+        min-height: 120px;
+      }
+
+      .half {
+        grid-column: span 2;
+        min-height: 100px;
+      }
+
+      .card {
+        min-height: 120px;
+      }
+
+      /* 8 small cards — desktop = ONE ROW */
+      .eight-cards {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 16px;
+      }
+
+      .small {
+        min-height: 90px;
+      }
+
+      /* =====================
+       MOBILE VIEW (FIXED)
+    ===================== */
+      @media (max-width: 768px) {
+        /* Switch main grid to 2 columns */
+        .container {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+
+        /* Full-width sections */
+        .banner,
+        .half {
+          grid-column: 1 / -1;
+        }
+
+        /* Cards become 2×2 naturally */
+        .card {
+          grid-column: span 1;
+        }
+
+        /* Small cards = 4 × 2 */
+        .eight-cards {
+          grid-column: 1 / -1;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 12px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Banner -->
+      <div class="box banner"></div>
+
+      <!-- Two halves -->
+      <div class="box half"></div>
+      <div class="box half"></div>
+
+      <!-- Four cards -->
+      <div class="box card"></div>
+      <div class="box card"></div>
+      <div class="box card"></div>
+      <div class="box card"></div>
+
+      <!-- Eight small cards -->
+      <div class="eight-cards">
+        <div class="box small"></div>
+        <div class="box small"></div>
+        <div class="box small"></div>
+        <div class="box small"></div>
+        <div class="box small"></div>
+        <div class="box small"></div>
+        <div class="box small"></div>
+        <div class="box small"></div>
+      </div>
+    </div>
+  </body>
+</html>

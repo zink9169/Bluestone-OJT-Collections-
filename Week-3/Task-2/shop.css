@@ -1,0 +1,31 @@
+
+.product .fav-btn {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: 0.15s ease;
+}
+
+.product:hover .fav-btn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+.fav-btn.active i {
+  color: #dc3545;
+}
+
+.product .fav-btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.15s ease;
+}
+
+.product:hover .fav-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav-link.active {
+  font-weight: bold;
+}
