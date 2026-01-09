@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "name": "Skincare Set 1",
+    "price": 100,
+    "image": "img/skincare1.png",
+    "rating": 4,
+    "description": "TA skincare product description should blend features (ingredients, texture) with benefits (what it does for the skin), paint an evocative sensory experience, use strong benefit-driven language , mention skin type suitability, and ideally include social proof (reviews) to build trust, all while being optimized for SEO and easy to read. Focus on solving a problem (like dryness or aging) and describe the desirable result for the user, making them want the product."
+  },
+  {
+    "id": 2,
+    "name": "Skincare Set 2",
+    "price": 150,
+    "image": "img/skincare2.png",
+    "rating": 5,
+    "description": "TA skincare product description should blend features (ingredients, texture) with benefits (what it does for the skin), paint an evocative sensory experience, use strong benefit-driven language   , mention skin type suitability, and ideally include social proof (reviews) to build trust, all while being optimized for SEO and easy to read. Focus on solving a problem (like dryness or aging) and describe the desirable result for the user, making them want the product."
+  },
+  {
+    "id": 3,
+    "name": "Skincare Set 3",
+    "price": 200,
+    "image": "img/skincare3.jpeg",
+    "rating": 3,
+    "description": "TA skincare product description should blend features (ingredients, texture) with benefits (what it does for the skin), paint an evocative sensory experience, use strong benefit-driven language   , mention skin type suitability, and ideally include social proof (reviews) to build trust, all while being optimized for SEO and easy to read. Focus on solving a problem (like dryness or aging) and describe the desirable result for the user, making them want the product."
+  },
+  {
+    "id": 4,
+    "name": "J'Adore By Dior",
+    "price": 250,
+    "image": "img/j'AdoreDior.png",
+    "rating": 4,
+    "description": "TA skincare product description should blend features (ingredients, texture) with benefits (what it does for the skin), paint an evocative sensory experience, use strong benefit-driven language , mention skin type suitability, and ideally include social proof (reviews) to build trust, all while being optimized for SEO and easy to read. Focus on solving a problem (like dryness or aging) and describe the desirable result for the user, making them want the product."
+  },
+  {
+    "id": 5,
+    "name": "Flora By Gucci",
+    "price": 300,
+    "image": "img/gucciflora.jpg",
+    "rating": 5,
+    "description": "TA skincare product description should blend features (ingredients, texture) with benefits (what it does for the skin), paint an evocative sensory experience, use strong benefit-driven language   , mention skin type suitability, and ideally include social proof (reviews) to build trust, all while being optimized for SEO and easy to read. Focus on solving a problem (like dryness or aging) and describe the desirable result for the user, making them want the product."
+  },
+  {
+    "id": 6,
+    "name": "Miss Dior",
+    "price": 350,
+    "image": "img/MissDior.jpg",
+    "rating": 3,
+    "description": "TA skincare product description should blend features (ingredients, texture) with benefits (what it does for the skin), paint an evocative sensory experience, use strong benefit-driven language   , mention skin type suitability, and ideally include social proof (reviews) to build trust, all while being optimized for SEO and easy to read. Focus on solving a problem (like dryness or aging) and describe the desirable result for the user, making them want the product."
+  }
+]
+

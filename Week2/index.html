@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Task1 JS</title>
+   <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+   <h2>Product Order Management</h2>
+
+   <div class="form-group">
+      <select id="product">
+         <option value="">Product</option>
+         <option  value="Laptop" data-price="1000">Laptop</option>
+         <option  value="Mouse" data-price="50">Mouse</option>
+         <option  value="Keyboard" data-price="100">Keyboard</option>
+      </select>
+
+   <input type="number" id="quantity" placeholder="Quantity" min="1" max="">
+   <input type="number" id="discount" placeholder="Discount(%)" min="0" max="100">
+
+   <button onclick="addProduct()">Add</button>
+ </div>
+   <table>
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Discount(%)</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+
+    <tbody id="orderTable"></tbody>
+
+    <tfoot>
+        <tr class="total-row">
+            <td colspan="4">Total</td>
+            <td id="grandTotal">0</td>
+        </tr>
+    </tfoot>
+</table>
+
+   <script>
+    let grandTotal = 0;
+
+    function addProduct() {
+        const productSelect = document.getElementById("product");
+        const product = productSelect.value;
+        const price = productSelect.options[productSelect.selectedIndex].dataset.price;
+        const quantity = document.getElementById("quantity").value;
+        const discount = document.getElementById("discount").value || 0;
+
+        if (!product || quantity <= 0) {
+            alert("Please select product and quantity");
+            return;
+        }
+
+        let total = price * quantity;
+        total = total - (total * discount / 100);
+
+        const table = document.getElementById("orderTable");
+        const row = table.insertRow();
+
+        row.insertCell(0).innerText = product;
+        row.insertCell(1).innerText = quantity;
+        row.insertCell(2).innerText = price;
+        row.insertCell(3).innerText = discount;
+        row.insertCell(4).innerText = total;
+
+        grandTotal += total;
+        document.getElementById("grandTotal").innerText = grandTotal;
+
+       
+        document.getElementById("quantity").value = "";
+        document.getElementById("discount").value = "";
+    }
+</script>
+  
+</body>
+</html>

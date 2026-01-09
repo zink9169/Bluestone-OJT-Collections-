@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini-Blog & Comment Explorer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-blog"></i> Mini-Blog & Comment Explorer</h1>
+        <p class="subtitle">Explore blog posts and their comments using dynamic fetch patterns. Click on any post to view its full details and associated comments.</p>
+    </header>
+    
+    <div class="container">
+        <!-- Posts List Section -->
+        <section class="posts-container">
+            <h2 class="section-title"><i class="fas fa-list"></i> Blog Posts</h2>
+            <div id="posts-list" class="posts-list">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading blog posts...</p>
+                </div>
+            </div>
+            
+            <div class="api-info">
+                <h4><i class="fas fa-code"></i> API Endpoint:</h4>
+                <p>https://jsonplaceholder.typicode.com/posts</p>
+            </div>
+        </section>
+        
+        <!-- Detail & Comments Section -->
+        <section class="detail-container">
+            <h2 class="section-title"><i class="fas fa-file-alt"></i> Post Details & Comments</h2>
+            <div id="detail-content" class="detail-content">
+                <div class="empty-state">
+                    <i class="fas fa-mouse-pointer"></i>
+                    <h3>Select a Post</h3>
+                    <p>Click on any blog post from the list to view its full content and comments here.</p>
+                </div>
+            </div>
+            
+            <div class="api-info">
+                <h4><i class="fas fa-code"></i> API Endpoints:</h4>
+                <p>Post Details: https://jsonplaceholder.typicode.com/posts/ID</p>
+                <p>Comments: https://jsonplaceholder.typicode.com/posts/ID/comments</p>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>Mini-Blog & Comment Explorer | Dynamic Fetch Pattern Demonstration | Using JSONPlaceholder API</p>
+    </footer>
+
+   <script src="script.js"></script>
+                
+</body>
+</html>

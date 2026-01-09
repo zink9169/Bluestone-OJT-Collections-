@@ -1,0 +1,47 @@
+
+    body {
+        font-family: Arial;
+        padding: 30px;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    .form-group {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    select, input {
+        padding: 6px;
+        width: 120px;
+    }
+
+    button {
+        padding: 6px 15px;
+        cursor: pointer;
+    }
+
+    table {
+        width: 80%;
+        margin: auto;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #774343;
+        padding: 8px;
+        text-align: center;
+    }
+
+    th {
+        background: #c711c46a;
+        color: white;
+    }
+
+    .total-row td {
+        font-weight: bold;
+    }

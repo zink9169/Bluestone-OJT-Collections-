@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="responsive.css">
+
+  
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="#">Your Logo</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="home.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
+          <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+          <li class="nav-item"><a class="nav-link" href="checkout.html">Checkout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container my-5" style="margin-top: 100px;"> <!-- extra margin to offset fixed navbar -->
+    <div class="row">
+      
+      <!-- LEFT COLUMN - ADDRESS FORM -->
+      <div class="col-lg-8 mb-4">
+        <div class="card p-4">
+          <h4 class="mb-3">Enter Your Address</h4>
+
+          <form id="checkoutForm">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label required">Your name</label>
+                <input type="text" class="form-control" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label required">Email</label>
+                <input type="email" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label required">Phone</label>
+                <input type="tel" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label required">Street and Number</label>
+              <input type="text" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Apartment, suite, etc.</label>
+              <input type="text" class="form-control">
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label required">City</label>
+                <select class="form-select" required>
+                  <option value="" disabled selected>City</option>
+                  <option>Yangon</option>
+                  <option>Mandalay</option>
+                  <option>Ayarwaddy</option>
+                </select>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label class="form-label required">Country</label>
+                <select class="form-select" required>
+                  <option value="" disabled selected>Country</option>
+                  <option>Myanmar</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN - ORDER SUMMARY -->
+      <div class="col-lg-4">
+        <div class="card p-4 sticky-order-summary">
+          <h5 class="mb-4">Your Order</h5>
+
+          <!-- Order items will be inserted here by JavaScript -->
+          <div id="checkoutOrderItems"></div>
+
+          <div class="order-item">
+            <div class="d-flex justify-content-between">
+              <span>Delivery Fee</span>
+              <span id="deliveryFee">$10.00</span>
+            </div>
+          </div>
+
+          <div class="order-item">
+            <div class="d-flex justify-content-between">
+              <span>Item Total</span>
+              <span id="checkoutSubtotal">$0.00</span>
+            </div>
+          </div>
+
+          <div class="order-item">
+            <div class="d-flex justify-content-between">
+              <span>Taxes</span>
+              <span id="checkoutTax">$0.00</span>
+            </div>
+          </div>
+
+          <div class="order-item pt-3 border-top">
+            <div class="d-flex justify-content-between fw-bold fs-5">
+              <span>Total</span>
+              <span id="checkoutTotal">$0.00</span>
+            </div>
+          </div>
+
+          <button class="btn btn-checkout w-100 py-3 my-3" onclick="processCheckout()">
+            Confirm <i class="bi bi-arrow-right"></i>
+          </button>
+
+          <div class="text-center text-muted mb-3">or</div>
+
+          <a href="cart.html" class="btn btn-outline-secondary w-100">
+            <i class="bi bi-arrow-left"></i> Back to cart
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

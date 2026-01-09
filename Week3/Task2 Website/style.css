@@ -1,0 +1,270 @@
+
+body {
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding-top: 70px;
+}
+/* Website ရဲ့ နောက်ခံအရောင်ကို အလင်းမည်းမဟုတ်တဲ့ အဖြူနီးပါး အရောင်ထားတယ်
+Font ကို Arial သုံးမယ်
+Browser default margin ကို ဖယ်တယ်
+padding-top: 70px က fixed navbar ကြောင့် content မဖုံးသွားအောင် နေရာချန်ထားတာပါ */
+
+
+.card {
+  border: none;
+  border-radius: 10px;
+}
+/* Card ရဲ့ border ကို ဖယ်တယ်
+ထောင့်တွေကို ဝိုင်းဝိုင်းဖြစ်အောင် 10px ပေးထားတယ် */
+
+
+.card img {
+  objlloot: contain;
+}
+/* ပုံကို မပျက်မယွင်းအောင် card အတွင်းထဲ အံဝင်ခွင်ကျ ဖြစ်အောင် ပြထားတယ် */
+
+
+.price {
+  font-weight: bold;
+}
+/* စျေးနှုန်းကို ထင်ရှားအောင် စာလုံးအထူ (bold) လုပ်ထားတယ် */
+
+
+.form-control, .form-select {
+  border: 1px solid #ddd;
+}
+/* Input box နဲ့ Select box တွေရဲ့ border ကို အနည်းငယ်ဖော်ပြထားတယ် */
+
+
+.form-control:focus, .form-select:focus {
+  box-shadow: none;
+  border-color: #666;
+}
+/* Input ကို click လုပ်တဲ့အခါ Bootstrap shadow ကို ဖယ်တယ်
+Border အရောင်ကို မည်းနည်းနည်း ပြောင်းတယ် */
+
+
+.required::after {
+  content: " *";
+  color: red;
+}
+/* မဖြည့်မဖြစ် field တွေမှာ အနီရောင် * (asterisk) ထည့်ပြတယ် */
+
+
+.navbar {
+  transition: all 0.3s ease;
+}
+/* Navbar အပြောင်းအလဲတွေကို မရုတ်တရက်မဖြစ်ဘဲ နူးညံ့အောင် animation ထည့်ထားတယ် */
+
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #4f46e5;
+}
+/* Website logo / name ကို ထင်ရှားအောင် အထူ၊ အရွယ်ကြီး၊ အပြာရောင် ပေးထားတယ် */
+
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+  transition: color 0.3s;
+}
+/* Menu link တွေကို အလယ်အလတ်အထူ ပေးထားပြီး hover အချိန် smooth ဖြစ်အောင် transition ထည့်တယ် */
+
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: #4f46e5;
+}
+/* Hover လုပ်တဲ့ link နဲ့ လက်ရှိ page link ကို အပြာရောင် ပြောင်းပြတယ် */
+
+
+.fixed-top {
+  position: fixed !important;
+  top: 0;
+  width: 100%;
+  z-index: 1020;
+  background-color: #fff;
+}
+/* Navbar ကို အပေါ်မှာ အမြဲကပ်နေအောင် လုပ်တယ်
+Content တွေအပေါ်မှာ ဖုံးနိုင်အောင် z-index ပေးထားတယ် */
+
+
+.navbar.scrolled {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+/* Scroll ဆင်းရင် navbar အောက်မှာ အရိပ် ပေါ်လာအောင် လုပ်တယ် */
+
+
+.hero {
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+              url("https://images.unsplash.com/photo-1521334884684-d80222895322") center/cover no-repeat;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+}
+/* Homepage အပေါ်ဆုံး Banner section
+Background image + အမည်း gradient ထည့်ထားတယ်
+စာသားကို အလယ်တည့်တည့်ထားတယ် */
+
+
+.category-card {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+/* Category card တွေကို အဖြူရောင်၊ အရိပ်နဲ့ ချောမွေ့အောင် ပြထားတယ်
+Hover လုပ်လို့ရအောင် cursor pointer ထည့်တယ် */
+
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+/* Mouse တင်ရင် card ကို အနည်းငယ် အပေါ်တက်သလို မြင်ရတယ် */
+
+
+.card.featured img {
+  height: 200px;
+}
+.card.shop img {
+  height: 220px;
+}
+/* Card အမျိုးအစားအလိုက် ပုံအမြင့် မတူအောင် သတ်မှတ်ထားတယ် */
+
+
+.img-container {
+  position: relative;
+  overflow: hidden;
+}
+/* Image အပေါ် button တင်ဖို့ position relative သုံးထားတယ် */
+
+
+.img-container img {
+  width: 100%;
+  display: block;
+}
+
+.view-desc-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.img-container:hover .view-desc-btn {
+  opacity: 1;
+}
+/* Image ပေါ် mouse တင်မှ button ပေါ်လာအောင် လုပ်ထားတယ် */
+
+
+
+.cta {
+  background: #212529;
+  padding: 60px 0;
+}
+/* Call To Action section ကို အမည်းရောင်နဲ့ ထင်ရှားအောင် ပြထားတယ် */
+
+
+.footer {
+  background: #fff;
+  padding: 20px;
+  margin-top: 40px;
+}
+/* Footer ကို သန့်ရှင်းအောင် အဖြူရောင်နဲ့ padding ပေးထားတယ် */
+
+
+
+.order-item {
+  border-bottom: 1px solid #eee;
+  padding: 12px 0;
+}
+/* Order list တစ်ခုချင်းစီ ခွဲမြင်ရအောင် မျဉ်းဆွဲထားတယ် */
+
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+
+
+.btn-checkout {
+  background-color: #000;
+  color: white;
+  border-radius: 8px;
+  padding: 12px;
+  transition: all 0.3s ease;
+}
+/* Checkout button ကို အပြာရောင်နဲ့ ထင်ရှားအောင် ပြထားတယ်
+Hover လုပ်ရင် အနည်းငယ် မည်းသွားတယ် */
+
+
+.btn-checkout:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.is-invalid {
+  border-color: #dc3545 !important;
+}
+/* Form error ဖြစ်ရင် input ကို အနီရောင် border ပြတယ် */
+
+@media (max-width: 576px) {
+  .navbar-nav {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .navbar-nav .nav-item {
+    margin-bottom: 10px;
+  }
+
+  .hero {
+    height: 250px;
+    font-size: 1.5rem;
+  }
+
+  .category-card {
+    padding: 20px;
+    font-size: 0.9rem;
+  }
+
+  .cart-item {
+    margin-bottom: 20px;
+  }
+}
+/* ဖုန်းအရွယ် screen မှာ
+Navbar ကို အလယ်တည့်တည့်
+Hero အမြင့်လျော့
+Card padding လျော့ */
+
+
+    .sticky-order-summary {
+      position: sticky;
+      top: 80px; /* Adjust according to navbar height + desired spacing */
+    }
+    .btn-checkout {
+      background-color: #4f46e5;
+      color: white;
+    }
+    .btn-checkout:hover {
+      background-color: #4338ca;
+      color: white;
+    }
+    .required::after {
+      content: "*";
+      color: red;
+      margin-left: 2px;
+    }
+/* Order summary ကို scroll ဆင်းရင်ပါ လိုက်နေတာ ဖြစ်အောင် လုပ်ထားတယ် */
