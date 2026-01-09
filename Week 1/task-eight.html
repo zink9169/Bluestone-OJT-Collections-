@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Eight</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+            background-color: rgb(34, 34, 34);
+        }
+
+        .parallax-container {
+            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            perspective: 1px;
+        }
+
+        .parallax-group {
+            position: relative;
+            height: 100vh;
+            transform-style: preserve-3d;
+        }
+
+        .parallax-group.static {
+            background-color: rgb(51, 51, 51);
+            z-index: 10;
+        }
+
+        .middle-content {
+            padding: 100px 20px;
+            text-align: start;
+            color: rgb(240, 240, 240);
+        }
+
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .parallax-base {
+            transform: translateZ(0);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+        }
+
+        .parallax-back {
+            transform: translateZ(-1px);
+            transform: translateZ(-1px) scale(2);
+            background: url('https://i.pinimg.com/1200x/5a/f7/eb/5af7eb9a06fe9a8fc57146aec6f89614.jpg') no-repeat center center;
+            background-size: cover;
+            text-indent: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        /* Styling for better visibility */
+        h1 {
+            font-size: 3em;
+        }
+
+        h2 {
+            font-size: 2.5em;
+        }
+
+        p {
+            font-size: 1.2em;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="parallax-container">
+
+        <div class="parallax-group">
+            <div class="parallax-layer parallax-base">
+                <h1>Parallax Scrolling Effect</h1>
+                <p>Create the simple Parallax effect using pure CSS</p>
+            </div>
+            <div class="parallax-layer parallax-back"></div>
+        </div>
+
+        <div class="parallax-group static">
+            <div class="middle-content">
+                <h3>The Cool Title is Here</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste officia rerum aut tempora nesciunt provident a aliquam praesentium harum fugiat. Ea voluptates nam eligendi expedita, hic corrupti ab sequi optio.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

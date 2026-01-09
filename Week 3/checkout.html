@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | HoodieHaven</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-color: #6366f1;
+      --accent-color: #f43f5e;
+      --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+
+    body { 
+      background: var(--bg-gradient); 
+      font-family: 'Inter', sans-serif; 
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 40px 0;
+    }
+
+    .container { 
+      max-width: 850px; 
+      background: rgba(255, 255, 255, 0.95); 
+      padding: 40px; 
+      border-radius: 20px; 
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    h1 { 
+      font-weight: 600; 
+      letter-spacing: -1px; 
+      margin-bottom: 30px; 
+      color: #1f2937;
+    }
+
+    .summary { 
+      background: #f9fafb;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 30px; 
+    }
+
+    .summary-item { 
+      display: flex; 
+      justify-content: space-between; 
+      padding: 12px 0; 
+      border-bottom: 1px solid #e5e7eb; 
+      font-size: 0.95rem;
+    }
+
+    .summary-item:last-child { border-bottom: none; }
+
+    .total { 
+      font-weight: 600; 
+      font-size: 1.5rem; 
+      color: var(--primary-color);
+      text-align: right; 
+      margin-top: 15px; 
+    }
+
+    .form-control, .form-select {
+      border: 2px solid #e5e7eb;
+      padding: 12px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    }
+
+    .btn-submit { 
+      background: var(--primary-color); 
+      color: white; 
+      padding: 15px 30px; 
+      border: none; 
+      border-radius: 10px; 
+      font-weight: 600;
+      width: 100%;
+      font-size: 1.1rem;
+      transition: transform 0.2s, background 0.3s;
+      margin-top: 20px;
+    }
+
+    .btn-submit:hover { 
+      background: #4f46e5;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+    }
+
+    .btn-submit:active { transform: translateY(0); }
+
+    .empty-msg { text-align: center; color: #9ca3af; padding: 20px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1>Checkout</h1>
+      </div>
+    </div>
+
+    <div class="row g-5">
+      <div class="col-lg-5 order-lg-2">
+        <h5 class="mb-3">Order Summary</h5>
+        <div id="cart-summary" class="summary"></div>
+        <div id="cart-total" class="total"></div>
+      </div>
+
+      <div class="col-lg-7 order-lg-1">
+        <h5 class="mb-3">Shipping Details</h5>
+        <form id="checkout-form">
+          <div class="mb-3">
+            <label class="form-label small fw-bold">Full Name</label>
+            <input type="text" class="form-control" id="name" placeholder="John Doe" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-bold">Email Address</label>
+            <input type="email" class="form-control" id="email" placeholder="john@example.com" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-bold">Shipping Address</label>
+            <textarea class="form-control" id="address" rows="3" placeholder="123 Street, City, Country" required></textarea>
+          </div>
+          <div class="mb-4">
+            <label class="form-label small fw-bold">Payment Method</label>
+            <select class="form-select" id="payment" required>
+              <option value="">Select...</option>
+              <option value="Credit Card">Credit Card</option>
+              <option value="PayPal">PayPal</option>
+              <option value="Cash on Delivery">Cash on Delivery</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-submit">Complete Purchase</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const summaryDiv = document.getElementById('cart-summary');
+    const totalDiv = document.getElementById('cart-total');
+
+    function renderSummary() {
+      if (cart.length === 0) {
+        summaryDiv.innerHTML = "<p class='empty-msg'>Your cart is currently empty.</p>";
+        totalDiv.innerHTML = "";
+        return;
+      }
+      summaryDiv.innerHTML = "";
+      let total = 0;
+      cart.forEach(item => {
+        total += parseFloat(item.price);
+        summaryDiv.innerHTML += `
+          <div class="summary-item">
+            <span><strong>${item.name}</strong><br><small class="text-muted">${item.size} | ${item.color}</small></span>
+            <span>$${parseFloat(item.price).toFixed(2)}</span>
+          </div>
+        `;
+      });
+      totalDiv.innerText = `Total: $${total.toFixed(2)}`;
+    }
+
+    renderSummary();
+
+    document.getElementById('checkout-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (cart.length === 0) {
+        alert("Please add items to your cart first!");
+        return;
+      }
+      
+      const btn = e.target.querySelector('button');
+      btn.innerText = "Processing...";
+      btn.disabled = true;
+
+      setTimeout(() => {
+        alert(`Order Successful! Thank you for shopping at HoodieHaven.`);
+        localStorage.removeItem('cart');
+        window.location.href = "index.html"; 
+      }, 1500);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task One</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            padding: 0 30px 30px 30px;
+        }
+
+        .container-box {
+            /* Main */
+            display: flex;
+            height: 47vh;
+            padding: 10px;
+            background-color: rgb(255, 0, 0);
+            border-radius: 15px;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .box {
+            width: 50px;
+            height: 50px;
+            background-color: rgb(70, 130, 180);
+            border-radius: 10px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgb(255, 255, 255);
+            font-size: 20px;
+            margin: 3px;
+        }
+
+
+        .playground-container {
+            /* Main */
+            display: flex;
+            flex-direction: column;
+            background-color: rgb(128, 128, 128);
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .playground-container div {
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-around;
+            max-width: 300px;
+            font-weight: bold;
+        }
+
+        .playground-container div select,
+        .playground-container div label {
+            width: 110px;
+        }
+
+        .playground-container div select {
+            font-size: 15px;
+        }
+
+        .live-code-container {
+            /* Main */
+            background-color: rgb(0, 0, 0);
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 20px;
+            color: rgb(128, 128, 128);
+            margin-top: 20px;
+        }
+
+        .header {
+            font-weight: bold;
+            font-size: larger;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div style="text-align: center;padding: 20px 0;">
+            <header class="header">Flexbox Playground</header>
+        </div>
+        <div class="playground-container" id="playground">
+            <div>
+                <label for="flex">Flex-direction</label>
+                <select name="flex" id="flex">
+                    <option value="row">row</option>
+                    <option value="row-reverse">row-reverse</option>
+                    <option value="column">columns</option>
+                    <option value="column-reverse">columns-reverse</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="justify">Justify-content</label>
+                <select name="justify" id="justify">
+                    <option value="flex-start">flex-start</option>
+                    <option value="flex-end">flex-end</option>
+                    <option value="center">center</option>
+                    <option value="space-between">space-between</option>
+                    <option value="space-around">space-around</option>
+                    <option value="space-evenly">space-evenly</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="align">Align-items</label>
+                <select name="align" id="align">
+                    <option value="center">center</option>
+                    <option value="flex-start">flex-start</option>
+                    <option value="flex-end">flex-end</option>
+                    <option value="baseline">baseline</option>
+                    <option value="stretch">stretch</option>
+                </select>
+            </div>
+        </div>
+        <div class="container-box" id="box">
+            <div class="box">
+                1
+            </div>
+            <div class="box">
+                2
+            </div>
+            <div class="box">
+                3
+            </div>
+            <div class="box">
+                4
+            </div>
+            <div class="box">
+                5
+            </div>
+        </div>
+        <div class="live-code-container">
+            <pre id="live-code">
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+        }</pre>
+        </div>
+    </div>
+    <script>
+        let box = document.getElementById('box');
+        let live = document.getElementById('live-code');
+
+        let flex = document.getElementById('flex');
+        let justify = document.getElementById('justify');
+        let align = document.getElementById('align');
+
+        flex.onchange = function () {
+            console.log(flex.value);
+            box.style.flexDirection = flex.value;
+            updateLiveCode();
+        }
+
+        justify.onchange = function () {
+            console.log(justify.value);
+            box.style.justifyContent = justify.value;
+            updateLiveCode();
+        }
+
+        align.onchange = function () {
+            console.log(align.value);
+            box.style.alignItems = align.value;
+            updateLiveCode();
+        }
+
+        function updateLiveCode() {
+            live.textContent =
+                `        .container {
+            display: flex;
+            flex-direction: ${flex.value};
+            justify-content: ${justify.value};
+            align-items: ${align.value};
+            gap: 10px;
+        }`;
+        }
+    </script>
+</body>
+
+</html>

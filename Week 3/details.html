@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | HoodieHaven</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .product-details {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .product-details img {
+            width: 350px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: #eee;
+        }
+
+        .info {
+            flex: 1;
+        }
+
+        .info h2 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .price {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #e74c3c;
+        }
+
+        .btn {
+            background: #e74c3c;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: #c0392b;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #7f8c8d;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(2px);
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .success-icon {
+            background: #27ae60;
+            color: white;
+            width: 50px;
+            height: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .modal-body {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+            text-align: left;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+
+        .modal-body img {
+            width: 70px;
+            height: 70px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+
+        .modal-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #7f8c8d;
+            border: 1px solid #bdc3c7;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-outline:hover {
+            background: #f9f9f9;
+        }
+
+        @media (max-width: 600px) {
+            .product-details {
+                flex-direction: column;
+            }
+
+            .product-details img {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+    <script src="header.js"></script>
+    <div class="container">
+        <div id="details" class="product-details">
+            <p>Loading product...</p>
+        </div>
+        <a href="index.html" class="back-link">← Back to Shop</a>
+    </div>
+
+    <div id="cartModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="success-icon">✓</div>
+            <h3 style="margin:0">Added to Cart</h3>
+
+            <div id="modal-item-details" class="modal-body">
+            </div>
+
+            <div class="modal-footer">
+                <a href="cart.html" class="btn" style="text-decoration:none; text-align:center;">Checkout Now</a>
+                <button class="btn-outline" onclick="closeModal()">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const productId = parseInt(params.get('id'));
+        let fetchedProducts = [];
+
+        async function loadProduct() {
+            try {
+                const res = await fetch('db.json');
+                fetchedProducts = await res.json();
+                const product = fetchedProducts.find(p => p.id === productId);
+
+                if (!product) {
+                    document.getElementById('details').innerHTML = "<h2>Product not found.</h2>";
+                    return;
+                }
+
+                const defaultVariant = product.variants[0];
+
+                document.getElementById('details').innerHTML = `
+          <img src="${defaultVariant.image}" alt="${product.name}">
+          <div class="info">
+            <h2>${product.name}</h2>
+            <p>${product.description || "Premium quality hoodie designed for comfort and style. Made with sustainable materials."}</p>
+            <div class="price">$${product.price.toFixed(2)}</div>
+            <button class="btn" onclick="addToCart(${product.id})">Add to Cart</button>
+          </div>
+        `;
+            } catch (error) {
+                console.error("Error loading products:", error);
+                document.getElementById('details').innerHTML = "<p>Error loading product data.</p>";
+            }
+        }
+
+        function addToCart(id) {
+            const product = fetchedProducts.find(p => p.id === id);
+            const variant = product.variants[0];
+
+            const cartItem = {
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                image: variant.image,
+                size: "M",
+                color: variant.color
+            };
+
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push(cartItem);
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            openModal(product, variant);
+        }
+
+        function openModal(product, variant) {
+            const modal = document.getElementById('cartModal');
+            const modalContent = document.getElementById('modal-item-details');
+
+            modalContent.innerHTML = `
+        <img src="${variant.image}" alt="${product.name}">
+        <div>
+          <div style="font-weight:bold; margin-bottom:4px;">${product.name}</div>
+          <div style="font-size:0.9rem; color:#666;">Size: M | Price: $${product.price.toFixed(2)}</div>
+        </div>
+      `;
+
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        window.onclick = function (event) {
+            const modal = document.getElementById('cartModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        loadProduct();
+    </script>
+</body>
+
+</html>

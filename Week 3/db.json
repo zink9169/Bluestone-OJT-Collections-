@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "Essential Hoodie",
+        "price": 49.99,
+        "rating": 4.5,
+        "variants": [
+            { "color": "Classic Grey", "hex": "#808080", "image": "HoodieGrey.webp" },
+            { "color": "Charcoal Black", "hex": "#36454F", "image": "HoodieCharcoal.png" }
+        ]
+    },
+    {
+        "id": 2,   
+        "name": "Midnight Pullover",
+        "price": 59.99,
+        "rating": 5.0,
+        "variants": [
+             { "color": "Midnight Black", "hex": "#222222", "image": "HoodieBlack.png" },
+             { "color": "Deep Navy", "hex": "#000080", "image": "HoodieNavyBlue.png" }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Forest Fleece",
+        "price": 54.99,
+        "rating": 4.0,
+        "variants": [
+            { "color": "Forest Green", "hex": "#2E7D32", "image": "HoodieGreen.png" },
+            { "color": "Tan Brown", "hex": "#D2B48C", "image": "HoodieTan.png" }
+        ]
+    }
+]

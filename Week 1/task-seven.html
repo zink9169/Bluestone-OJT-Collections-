@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Seven</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .background {
+            background-color: wheat;
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+            padding: 40px 20px;
+            width: 100%;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .donut {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-family: sans-serif;
+            font-weight: bold;
+            color: rgb(51, 51, 51);
+            position: relative;
+        }
+
+        .donut::before {
+            content: "";
+            position: absolute;
+            width: calc(50px * 0.65);
+            height: calc(50px * 0.65);
+            background: white;
+            border-radius: 50%;
+        }
+
+        .orange {
+            background: conic-gradient(orange calc(69 * 1%),
+                    rgb(201, 200, 200) 0);
+        }
+
+        .green {
+            background: conic-gradient(green calc(69 * 1%),
+                    rgb(201, 200, 200) 0);
+        }
+
+        .blue {
+            background: conic-gradient(blue calc(69 * 1%),
+                    rgb(201, 200, 200) 0);
+        }
+
+        .score {
+            z-index: 100;
+        }
+
+        .accordion-container {
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background-color: transparent;
+        }
+
+        .accordion-item {
+            background-color: white;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .accordion-item+.accordion-item {
+            border-top: 1px solid white;
+            border-radius: 0;
+        }
+
+        .accordion-item:first-child {
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .accordion-item:last-child {
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        .accordion-header {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid white;
+            flex-wrap: wrap;
+        }
+
+        .accordion-item.collapsed .accordion-header {
+            border-bottom: none;
+        }
+
+        .accordion-header .title {
+            flex-grow: 1;
+            margin: 0;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: rgb(51, 51, 51);
+            min-width: 0;
+        }
+
+        .score-container {
+            min-width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: white;
+            background-color: rgb(92, 184, 92);
+        }
+
+        .score-container.negative {
+            background-color: rgb(240, 173, 78);
+        }
+
+        .summary-stats {
+            display: flex;
+            align-items: center;
+            font-size: 0.9em;
+            color: rgb(102, 102, 102);
+            white-space: nowrap;
+            margin-left: auto;
+        }
+
+        .summary-stats .stat {
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .positive-icon {
+            color: rgb(92, 184, 92);
+            margin-right: 5px;
+            font-size: 20px;
+        }
+
+        .neutral-icon {
+            color: rgb(153, 153, 153);
+            margin-right: 5px;
+            font-size: 20px;
+        }
+
+        .negative-icon {
+            color: rgb(240, 173, 78);
+            margin-right: 5px;
+            font-size: 20px;
+        }
+
+        .icon {
+            color: black;
+            font-size: 15px;
+        }
+
+        .toggle-icon {
+            margin-left: 15px;
+            font-size: 0.8em;
+            color: rgb(153, 153, 153);
+        }
+
+        .accordion-content {
+            padding: 20px;
+            padding-top: 0;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        }
+
+        .accordion-item.expanded .accordion-content {
+            max-height: 500px;
+            opacity: 1;
+            padding-top: 20px;
+        }
+
+        .opinion-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .opinion-card {
+            padding: 15px;
+            border: 1px solid white;
+            border-radius: 6px;
+            background-color: white;
+        }
+
+        .opinion-card.positive {
+            border-color: rgb(92, 184, 92);
+        }
+
+        .opinion-card.neutral {
+            border-color: rgb(204, 204, 204);
+        }
+
+        .opinion-card.negative {
+            border-color: rgb(240, 173, 78);
+        }
+
+        .opinion-card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .opinion-card .count {
+            font-size: 1.2em;
+        }
+
+        .opinion-card p {
+            margin: 0;
+            font-size: 0.85em;
+            line-height: 1.4;
+            color: rgb(85, 85, 85);
+        }
+
+        @media (max-width: 768px) {
+
+            .accordion-header {
+                align-items: flex-start;
+                padding: 15px;
+            }
+
+            .donut {
+                margin-right: 10px;
+            }
+
+            .accordion-header .title {
+                flex-basis: calc(100% - 65px);
+                margin-left: 0;
+                margin-bottom: 10px;
+                order: 1;
+                font-size: 1em;
+            }
+
+            .summary-stats {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                width: 100%;
+                margin-left: 0;
+                order: 3;
+                padding-top: 10px;
+                border-top: 1px solid white;
+            }
+
+            .summary-stats .stat {
+                margin-left: 0;
+                margin-right: 10px;
+                flex: 1 1 auto;
+                justify-content: center;
+            }
+
+            .summary-stats .stat:first-child {
+                display: none;
+            }
+
+            .toggle-icon {
+                order: 2;
+                margin-left: auto;
+                padding-top: 5px;
+            }
+
+            .opinion-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .accordion-content {
+                padding: 15px;
+                padding-top: 0;
+            }
+
+            .accordion-item.expanded .accordion-content {
+                padding-top: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background">
+        <div class="accordion-container">
+
+            <div class="accordion-item collapsed">
+                <div class="accordion-header">
+                    <div class="donut orange">
+                        <span class="score">-69</span>
+                    </div>
+                    <h3 class="title" style="margin-left: 10px;">Lorem ipsum</h3>
+                    <div class="summary-stats">
+                        <span class="stat">18 opinion</span>
+                        <span class="stat icon"><i class="bi bi-emoji-smile positive-icon"></i> 4</span>
+                        <span class="stat icon"><i class="bi bi-emoji-neutral neutral-icon"></i> 1</span>
+                        <span class="stat icon"><i class="bi bi-emoji-frown negative-icon"></i> 13</span>
+                        <span class="toggle-icon"><i class="bi bi-caret-down-fill"></i></span>
+                    </div>
+                </div>
+                <div class="accordion-content">
+                    <div class="opinion-grid">
+                        <div class="opinion-card positive">
+                            <div class="card-header">
+                                <span class="icon"><i class="bi bi-emoji-smile"></i> Positive</span>
+                                <span class="count">12</span>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id congue dolor. Vivamus
+                                eleifend vitae nunc sed tincidunt.Lorem ipsum dolor sit amet, consectetur adipiscing
+                                elit. Proin id congue dolor. Vivamus eleifend vitae nunc sed tincidunt.</p>
+                        </div>
+
+                        <div class="opinion-card neutral">
+                            <div class="card-header">
+                                <span class="icon"><i class="bi bi-emoji-neutral"></i> Neutral</span>
+                                <span class="count">5</span>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id congue dolor. Vivamus
+                                eleifend vitae nunc sed tincidunt.</p>
+                        </div>
+
+                        <div class="opinion-card negative">
+                            <div class="card-header">
+                                <span class="icon"><i class="bi bi-emoji-frown"></i> Negative</span>
+                                <span class="count">5</span>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id congue dolor. Vivamus
+                                eleifend vitae nunc sed tincidunt.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item expanded">
+                <div class="accordion-header">
+                    <div class="donut green">
+                        <span class="score">58</span>
+                    </div>
+                    <h3 class="title" style="margin-left: 10px;">Lorem ipsum</h3>
+                    <div class="summary-stats">
+                        <span class="stat">18 opinion</span>
+                        <span class="stat icon"><i class="bi bi-emoji-smile positive-icon"></i> 4</span>
+                        <span class="stat icon"><i class="bi bi-emoji-neutral neutral-icon"></i> 1</span>
+                        <span class="stat icon"><i class="bi bi-emoji-frown negative-icon"></i> 13</span>
+                        <span class="toggle-icon"><i class="bi bi-caret-up-fill"></i></span>
+                    </div>
+                </div>
+                <div class="accordion-content">
+                    <div class="opinion-grid">
+                        <div class="opinion-card positive">
+                            <div class="card-header">
+                                <span class="icon"><i class="bi bi-emoji-smile"></i> Positive</span>
+                                <span class="count">12</span>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id congue dolor. Vivamus
+                                eleifend vitae nunc sed tincidunt.Lorem ipsum dolor sit amet, consectetur adipiscing
+                                elit. Proin id congue dolor. Vivamus eleifend vitae nunc sed tincidunt.</p>
+                        </div>
+
+                        <div class="opinion-card neutral">
+                            <div class="card-header">
+                                <span class="icon"><i class="bi bi-emoji-neutral"></i> Neutral</span>
+                                <span class="count">5</span>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id congue dolor. Vivamus
+                                eleifend vitae nunc sed tincidunt.</p>
+                        </div>
+
+                        <div class="opinion-card negative">
+                            <div class="card-header">
+                                <span class="icon"><i class="bi bi-emoji-frown"></i> Negative</span>
+                                <span class="count">5</span>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id congue dolor. Vivamus
+                                eleifend vitae nunc sed tincidunt.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item collapsed">
+                <div class="accordion-header">
+                    <div class="donut blue">
+                        <span class="score">33</span>
+                    </div>
+                    <h3 class="title" style="margin-left: 10px;">Lorem ipsum</h3>
+                    <div class="summary-stats">
+                        <span class="stat">18 opinion</span>
+                        <span class="stat icon"><i class="bi bi-emoji-smile positive-icon"></i> 4</span>
+                        <span class="stat icon"><i class="bi bi-emoji-neutral neutral-icon"></i> 1</span>
+                        <span class="stat icon"><i class="bi bi-emoji-frown negative-icon"></i> 13</span>
+                        <span class="toggle-icon"><i class="bi bi-caret-down-fill"></i></span>
+                    </div>
+                </div>
+                <div class="accordion-content">
+                    <div class="opinion-grid">
+                        <div class="opinion-card positive">
+                            <div class="card-header">
+                                <span class="icon"><i class="bi bi-emoji-smile"></i> Positive</span>
+                                <span class="count">12</span>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id congue dolor. Vivamus
+                                eleifend vitae nunc sed tincidunt.Lorem ipsum dolor sit amet, consectetur adipiscing
+                                elit. Proin id congue dolor. Vivamus eleifend vitae nunc sed tincidunt.</p>
+                        </div>
+
+                        <div class="opinion-card neutral">
+                            <div class="card-header">
+                                <span class="icon"><i class="bi bi-emoji-neutral"></i> Neutral</span>
+                                <span class="count">5</span>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id congue dolor. Vivamus
+                                eleifend vitae nunc sed tincidunt.</p>
+                        </div>
+
+                        <div class="opinion-card negative">
+                            <div class="card-header">
+                                <span class="icon"><i class="bi bi-emoji-frown"></i> Negative</span>
+                                <span class="count">5</span>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id congue dolor. Vivamus
+                                eleifend vitae nunc sed tincidunt.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const headers = document.querySelectorAll('.accordion-header');
+
+            headers.forEach(header => {
+                header.addEventListener('click', () => {
+                    const item = header.closest('.accordion-item');
+
+                    const isExpanded = item.classList.contains('expanded');
+
+                    document.querySelectorAll('.accordion-item.expanded').forEach(expandedItem => {
+                        if (expandedItem !== item) {
+                            expandedItem.classList.remove('expanded');
+                            expandedItem.querySelector('.toggle-icon .bi').classList.replace('bi-caret-up-fill', 'bi-caret-down-fill');
+                        }
+                    });
+
+                    if (isExpanded) {
+                        item.classList.remove('expanded');
+                        item.querySelector('.toggle-icon .bi').classList.replace('bi-caret-up-fill', 'bi-caret-down-fill');
+                    } else {
+                        item.classList.add('expanded');
+                        item.querySelector('.toggle-icon .bi').classList.replace('bi-caret-down-fill', 'bi-caret-up-fill');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

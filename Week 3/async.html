@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 2rem;
+        }
+
+        .card {
+            height: 100%;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-title {
+            color: #0d6efd;
+            text-decoration: none;
+        }
+
+        .post-title:hover {
+            text-decoration: underline;
+        }
+
+        #loading {
+            text-align: center;
+            padding: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-6">
+                <h1 class="fw-bold">Bar<sup>2</sup>Nyar<sup>2</sup></h1>
+                <p class="text-muted">Simple Blog</p>
+            </div>
+            <div class="col-md-6">
+                <input type="text" id="search" class="form-control" placeholder="Search posts...">
+            </div>
+        </div>
+
+        <hr>
+
+        <div id="list-view">
+            <div id="loading">Loading posts...</div>
+            <div id="posts-grid" class="row g-4"></div>
+
+            <div class="d-flex justify-content-center mt-5">
+                <div id="pagination-buttons" class="btn-group"></div>
+            </div>
+        </div>
+
+        <div id="detail-view" class="d-none">
+            <button class="btn btn-outline-secondary mb-4" onclick="showList()">Back to Feed</button>
+            <div class="bg-white p-5 border rounded">
+                <h2 id="detail-title" class="mb-3 text-capitalize"></h2>
+                <p id="detail-meta" class="text-muted mb-4"></p>
+                <div id="detail-body" class="lead"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allPosts = [];
+        let filteredPosts = [];
+        let currentPage = 1;
+        const itemsPerPage = 9;
+
+        fetch('https://jsonplaceholder.typicode.com/posts')
+            .then(res => res.json())
+            .then(data => {
+                allPosts = data;
+                filteredPosts = data;
+                document.getElementById('loading').classList.add('d-none');
+                render();
+            });
+
+        function render() {
+            const grid = document.getElementById('posts-grid');
+            grid.innerHTML = '';
+
+            const start = (currentPage - 1) * itemsPerPage;
+            const pageItems = filteredPosts.slice(start, start + itemsPerPage);
+
+            pageItems.forEach(post => {
+                grid.innerHTML += `
+                <div class="col-md-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <small class="text-uppercase text-primary fw-bold">Post #${post.id}</small>
+                            <h5 class="card-title mt-2">
+                                <a href="#" class="post-title text-capitalize" onclick="showDetail(${post.id})">${post.title}</a>
+                            </h5>
+                            <p class="card-text text-muted">${post.body.substring(0, 80)}...</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            });
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const wrapper = document.getElementById('pagination-buttons');
+            wrapper.innerHTML = '';
+            const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
+
+            for (let i = 1; i <= Math.min(totalPages, 12); i++) {
+                wrapper.innerHTML += `
+                <button class="btn btn-outline-primary ${i === currentPage ? 'active' : ''}" 
+                        onclick="goToPage(${i})">${i}</button>
+            `;
+            }
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            render();
+            window.scrollTo(0, 0);
+        }
+
+        function showDetail(id) {
+            const post = allPosts.find(p => p.id === id);
+            document.getElementById('list-view').classList.add('d-none');
+            document.getElementById('detail-view').classList.remove('d-none');
+
+            document.getElementById('detail-title').innerText = post.title;
+            document.getElementById('detail-meta').innerText = `User ID: ${post.userId} | Post ID: ${post.id}`;
+            document.getElementById('detail-body').innerText = post.body;
+        }
+
+        function showList() {
+            document.getElementById('detail-view').classList.add('d-none');
+            document.getElementById('list-view').classList.remove('d-none');
+        }
+    </script>
+
+</body>
+
+</html>
