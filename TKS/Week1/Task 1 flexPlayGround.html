@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flexbox Playground</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+      }
+      .header {
+        text-align: center;
+      }
+      .container {
+        max-width: 1100px;
+        margin: auto;
+      }
+
+      .controls {
+        background: rgb(216, 222, 222);
+        padding: 15px;
+        border-radius: 16px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
+      }
+
+      .flex-preview {
+        background-color: rgb(112, 180, 229);
+        padding: 20px;
+        border-radius: 16px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
+      }
+
+      #container {
+        display: flex;
+        gap: 16px;
+        padding: 10px;
+        transition: 0.2s ease;
+        flex-wrap: wrap;
+      }
+
+      .item {
+        width: 80px;
+        height: 80px;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        border-radius: 4px;
+      }
+
+      .css-display {
+        background: #1e1e1e;
+        color: #9fdf9f;
+        padding: 15px;
+        border-radius: 10px;
+        white-space: pre-wrap;
+        overflow-x: auto;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="header">Flexbox Playground</h1>
+
+      <div
+        class="controls"
+        style="display: flex; flex-direction: column; gap: 15px"
+      >
+        <div style="display: flex; align-items: center; gap: 10px">
+          <label style="min-width: 120px">Flex Direction</label>
+          <select id="direction" style="width: auto; padding: 6px 10px">
+            <option value="row">row</option>
+            <option value="row-reverse">row-reverse</option>
+            <option value="column">column</option>
+            <option value="column-reverse">column-reverse</option>
+          </select>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 10px">
+          <label style="min-width: 120px">Justify Content</label>
+          <select id="justify" style="width: auto; padding: 6px 10px">
+            <option value="flex-start">flex-start</option>
+            <option value="flex-end">flex-end</option>
+            <option value="center">center</option>
+            <option value="space-between">space-between</option>
+            <option value="space-around">space-around</option>
+            <option value="space-evenly">space-evenly</option>
+          </select>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 10px">
+          <label style="min-width: 120px">Align Items</label>
+          <select id="align" style="width: auto; padding: 6px 10px">
+            <option value="stretch">stretch</option>
+            <option value="flex-start">flex-start</option>
+            <option value="flex-end">flex-end</option>
+            <option value="center">center</option>
+            <option value="baseline">baseline</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex-preview">
+        <div id="container">
+          <div class="item" style="background: #ef4444">1</div>
+          <div class="item" style="background: #f59e0b">2</div>
+          <div class="item" style="background: #41cf81">3</div>
+          <div class="item" style="background: #9c7bff">4</div>
+          <div class="item" style="background: #066544">5</div>
+        </div>
+      </div>
+
+      <div class="css-preview">
+        <pre id="css-output" class="css-display"></pre>
+      </div>
+    </div>
+
+    <script>
+      const flexbox = document.getElementById("container");
+      const direction = document.getElementById("direction");
+      const justify = document.getElementById("justify");
+      const align = document.getElementById("align");
+      const cssOutput = document.getElementById("css-output");
+
+      function updateStyles() {
+        flexbox.style.flexDirection = direction.value;
+        flexbox.style.justifyContent = justify.value;
+        flexbox.style.alignItems = align.value;
+
+        if (direction.value === "row" || direction.value === "row-reverse") {
+          flexbox.style.height = "150px";
+        } else {
+          flexbox.style.height = "500px";
+        }
+
+        cssOutput.textContent = `#container {
+                display: flex;
+                flex-direction: ${direction.value};
+                justify-content: ${justify.value};
+                align-items: ${align.value};
+                height: ${flexbox.style.height};
+              }`;
+      }
+
+      direction.addEventListener("change", updateStyles);
+      justify.addEventListener("change", updateStyles);
+      align.addEventListener("change", updateStyles);
+
+      updateStyles();
+    </script>
+  </body>
+</html>

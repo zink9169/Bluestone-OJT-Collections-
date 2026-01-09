@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shrinking Header + CSS Parallax</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .header-hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-image: url('https://picsum.photos/id/1015/1600/900');
+            /* Online image */
+            background-size: cover;
+            background-position: center center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 100px;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+            z-index: 100;
+            padding: 20px;
+        }
+
+        .header-hero.shrunk {
+            position: fixed;
+            height: 100px;
+            justify-content: center;
+            background-position: top center;
+        }
+
+        .hero-title {
+            font-size: 4em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .header-hero.shrunk .hero-title {
+            font-size: 1.5em;
+        }
+
+        .hero-content {
+            margin-top: 10px;
+            font-size: 1.2em;
+            transition: all 0.3s ease-in-out;
+            opacity: 1;
+        }
+
+        .nav-hero-text {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 20px;
+            font-size: 0.9em;
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .header-hero.shrunk .nav-hero-text {
+            opacity: 1;
+        }
+
+        .content-pusher {
+            height: 100vh;
+        }
+
+        .header-hero.shrunk+.content-pusher {
+            height: 60px;
+            transition: height 0.3s ease-in-out;
+        }
+
+        section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #section1 {
+            background-image: url('https://picsum.photos/id/1016/1600/900');
+        }
+
+        #section2 {
+            background-image: url('https://picsum.photos/id/1018/1600/900');
+        }
+
+        #section3 {
+            background-image: url('https://picsum.photos/id/1020/1600/900');
+        }
+
+        .content {
+            max-width: 800px;
+            z-index: 1;
+        }
+
+        .content h2 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="hero" class="header-hero">
+        <h1 class="hero-title">Parallax Header</h1>
+        <p class="hero-content">Intro paragraph stays visible while scrolling</p>
+    </header>
+    <div id="pusher" class="content-pusher"></div>
+
+    <section id="section1">
+        <div class="content">
+            <h2>Section 1</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet justo at orci dictum
+                ultricies.</p>
+        </div>
+    </section>
+
+    <section id="section2">
+        <div class="content">
+            <h2>Section 2</h2>
+            <p>Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Vivamus suscipit tortor eget felis
+                porttitor volutpat.</p>
+        </div>
+    </section>
+
+    <section id="section3">
+        <div class="content">
+            <h2>Section 3</h2>
+            <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Donec sollicitudin molestie
+                malesuada.</p>
+        </div>
+    </section>
+
+    <script>
+        const header = document.getElementById('hero');
+        const contentPusher = document.getElementById('pusher');
+        const scrollThreshold = 130;
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > scrollThreshold) {
+                header.classList.add('shrunk');
+                contentPusher.classList.add('shrunk');
+            } else {
+                header.classList.remove('shrunk');
+                contentPusher.classList.remove('shrunk');
+            }
+        });
+    </script>
+
+</body>
+
+</html>

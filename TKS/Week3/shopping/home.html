@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Sidebar Layout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
+
+    <style>
+        .scrollbar-hide {
+            -ms-overflow-style: none; 
+            scrollbar-width: none; 
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col">
+    <!-- NAVBAR -->
+    <div class="js-navbar">
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="flex pt-16">
+        <!-- SIDEBAR (hidden on mobile) -->
+        <aside class="hidden md:block w-64 bg-white shadow-md p-4 fixed top-16 left-0 bottom-0">
+            <h2 class="text-lg font-bold mb-4">Sidebar</h2>
+            <ul class="space-y-2">
+                <li><a href="#" class="block p-2 rounded hover:bg-indigo-100">Dashboard</a></li>
+                <li><a href="#" class="block p-2 rounded hover:bg-indigo-100">Orders</a></li>
+                <li><a href="#" class="block p-2 rounded hover:bg-indigo-100">Products</a></li>
+                <li><a href="#" class="block p-2 rounded hover:bg-indigo-100">Settings</a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN AREA -->
+        <main class="flex-1 md:ml-64 p-4 h-screen overflow-y-auto scrollbar-hide">
+            <!-- Header -->
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">All Products</h3>
+
+            <!-- Search  -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full rounded-md gap-4">
+                <div class="relative w-full max-w-sm">
+                    <input type="search" placeholder="Search products..."
+                        class="w-full pl-3 pr-10 py-2 rounded-md bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#714e62]">
+                    <i class="bi bi-search absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer"></i>
+                </div>
+                <div class="flex items-center justify-center text-gray-700 gap-2 font-medium">
+                    <span>Sort by:</span>
+                    <select class="rounded-md focus:outline-none focus:ring-2 focus:ring-[#714e62] p-1">
+                        <option>Featured</option>
+                        <option>Newest</option>
+                        <option>Price</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="js-product-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+                <!--  -->
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="./script/home.js"></script>
+</body>
+</html>

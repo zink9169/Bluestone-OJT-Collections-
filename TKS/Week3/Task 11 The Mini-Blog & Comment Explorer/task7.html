@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Blog & Comment Explorer</title>
+
+    <style>
+        :root {
+            --primary: #473ee8;
+            --bg: #f8f9fb;
+            --card: #ffffff;
+            --text: #1f2937;
+            --muted: #565a61;
+            --comment-bg: #f1f3f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 24px 16px;
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        header p {
+            font-size: 14px;
+            opacity: 0.85;
+        }
+
+        .js-post-grid {
+            max-width: 1100px;
+            margin: 30px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 0 16px;
+        }
+
+        .post-card {
+            background: var(--card);
+            padding: 16px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .post-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .post-card h3 {
+            font-size: 18px;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .post-card p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .js-post-detail {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 28px 24px;
+            background: var(--card);
+            border-radius: 14px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+
+        .js-post-detail h2 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .js-post-detail p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+
+        .comments-container {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .comment {
+            background: var(--comment-bg);
+            padding: 14px 16px;
+            border-radius: 14px;
+            position: relative;
+        }
+
+        .comment strong {
+            display: block;
+            font-size: 14px;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .comment p {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .comment small {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .js-post-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Mini Blog & Comment Explorer</h1>
+        <p>Click a post to see details & comments</p>
+    </header>
+
+    <main>
+        <!-- POSTS GRID -->
+        <div class="js-post-grid"></div>
+
+        <!-- POST DETAIL -->
+        <div class="js-post-detail hidden"></div>
+    </main>
+
+</body>
+<script src="./task7.js"></script>
+
+</html>

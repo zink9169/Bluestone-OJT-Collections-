@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Product Order Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        select,
+        input,
+        button {
+            padding: 8px;
+            font-size: 14px;
+            width: 150px;
+        }
+
+        button {
+            background: rgb(21, 92, 97);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100px;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            min-height: 18px;
+            margin-top: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: rgb(21, 92, 97);
+            color: white;
+        }
+
+        tfoot td {
+            font-weight: bold;
+            background: #f4f4f4;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Product Order Management</h2>
+
+    <div class="form-row">
+        <select class="product">
+            <option value="">Product</option>
+        </select>
+
+        <input type="number" class="qty" placeholder="Quantity (1–10)" min="1" max="10">
+
+        <input type="number" class="discount" placeholder="Discount %" min="0" max="100">
+
+        <button class="add-btn">Add</button>
+    </div>
+
+    <div class="error"></div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Discount (%)</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+
+        <tbody class="table-body"></tbody>
+
+        <tfoot>
+            <tr>
+                <td colspan="3"></td>
+                <td>Total</td>
+                <td>$<span class="grand-value">0.00</span></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <script>
+        const products = [
+            { id: 1, name: "Laptop", price: 1000 },
+            { id: 2, name: "Mouse", price: 20 },
+            { id: 3, name: "Keyboard", price: 50 }
+        ];
+
+        const productSelect = document.querySelector(".product");
+        const qtyInput = document.querySelector(".qty");
+        const discountInput = document.querySelector(".discount");
+        const addBtn = document.querySelector(".add-btn");
+        const errorBox = document.querySelector(".error");
+        const tableBody = document.querySelector(".table-body");
+        const grandValue = document.querySelector(".grand-value");
+
+        let grandTotal = 0;
+
+        // Populate product dropdown using createElement
+        products.forEach(p => {
+            const option = document.createElement("option");
+            option.value = p.id;
+            option.textContent = `${p.name} ($${p.price})`;
+            productSelect.appendChild(option);
+        });
+
+        const showError = msg => errorBox.textContent = msg;
+        const clearError = () => errorBox.textContent = "";
+
+        addBtn.addEventListener("click", () => {
+            clearError();
+
+            const productId = productSelect.value;
+            const qty = Number(qtyInput.value);
+            const discount = Number(discountInput.value);
+
+            if (!productId) {
+                showError("Please select a product.");
+                return;
+            }
+
+            if (!qty || qty < 1 || qty > 10) {
+                showError("Quantity must be between 1 and 10.");
+                return;
+            }
+
+            if (discount < 0 || discount > 100) {
+                showError("Discount must be between 0 and 100.");
+                return;
+            }
+
+            const product = products.find(p => p.id == productId);
+            const total = product.price * qty * (1 - discount / 100);
+
+            const tr = document.createElement("tr");
+
+            const tdName = document.createElement("td");
+            tdName.textContent = product.name;
+
+            const tdQty = document.createElement("td");
+            tdQty.textContent = qty;
+
+            const tdPrice = document.createElement("td");
+            tdPrice.textContent = `$${product.price}`;
+
+            const tdDiscount = document.createElement("td");
+            tdDiscount.textContent = `${discount}%`;
+
+            const tdTotal = document.createElement("td");
+            tdTotal.textContent = `$${total.toFixed(2)}`;
+
+            tr.appendChild(tdName);
+            tr.appendChild(tdQty);
+            tr.appendChild(tdPrice);
+            tr.appendChild(tdDiscount);
+            tr.appendChild(tdTotal);
+
+            tableBody.appendChild(tr);
+
+            grandTotal += total;
+            grandValue.textContent = grandTotal.toFixed(2);
+
+            productSelect.value = "";
+            qtyInput.value = "";
+            discountInput.value = "";
+        });
+
+        document.querySelectorAll("select, input").forEach(el => {
+            el.addEventListener("input", clearError);
+        });
+    </script>
+
+</body>
+
+</html>

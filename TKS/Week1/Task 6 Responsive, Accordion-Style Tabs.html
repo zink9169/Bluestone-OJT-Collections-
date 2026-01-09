@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beautiful Accordion</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #5CC4FF, #DA4C8F);
+    padding: 40px 15px;
+}
+.accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    max-width: 900px;
+    margin: auto;
+}   
+
+input[type="radio"] {
+    display: none;
+}
+
+.item {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0px 5px 25px rgba(0,0,0,0.12);
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px;
+    cursor: pointer;
+    gap: 10px;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.score {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 3px solid #50D878;
+    color: #50D878;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.score.negative {
+    border-color: #FF6934;
+    color: #FF6934;
+}
+
+.right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #666;
+    font-size: 15px;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.arrow {
+    font-size: 26px;
+    transform: rotate(0deg);
+    transition: 0.3s ease;
+    color: #777;
+}
+
+input:checked + label .arrow {
+    transform: rotate(180deg);
+}
+
+
+.content {
+    display: none;
+    padding: 25px;
+    background: #F6F7F9;
+    border-top: 1px solid #eee;
+}
+
+input:checked + label + .content {
+    display: block;
+}
+
+.cats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.cat-card {
+    flex: 1;
+    min-width: 240px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+}
+
+.cat-title {
+    font-weight: bold;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pos { color: #50D878; }
+.neu { color: #888; }
+.neg { color: #FF6934; }
+
+/* MOBILE */
+@media (max-width: 600px) {
+    .right span { display: none; }
+
+    .left {
+        width: 250px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="accordion">
+
+    <!-- ITEM 1 -->
+    <div class="item">
+        <input type="radio" name="acc" id="acc1">
+        <label for="acc1" class="title">
+            <div class="left">
+                <div class="score negative">-69</div>
+                Lorem ipsum
+            </div>
+
+            <div class="right">
+                <span>18 opinion</span>
+                <div class="icon">🙂 4</div>
+                <div class="icon">😐 1</div>
+                <div class="icon">🙁 13</div>
+                <div class="arrow">&#x25BC;</div>
+            </div>
+        </label>
+
+        <div class="content">
+            <div class="cats">
+
+                <div class="cat-card">
+                    <div class="cat-title pos">Positive <span>4</span></div>
+                    Short positive feedback. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </div>
+
+                <div class="cat-card">
+                    <div class="cat-title neu">Neutral <span>1</span></div>
+                    A neutral comment. Vivamus vitae nunc sed tincidunt. Proin vel elementum eros.
+                </div>
+
+                <div class="cat-card">
+                    <div class="cat-title neg">Negative <span>13</span></div>
+                    Users expressed dissatisfaction. Donec tincidunt, orci at mattis gravida, lorem leo mattis.
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ITEM 2 -->
+    <div class="item">
+        <input type="radio" name="acc" id="acc2" checked>
+        <label for="acc2" class="title">
+            <div class="left">
+                <div class="score">58</div>
+                Lorem ipsum dolor sit amet
+            </div>
+
+            <div class="right">
+                <span>22 opinion</span>
+                <div class="icon">🙂 12</div>
+                <div class="icon">😐 5</div>
+                <div class="icon">🙁 5</div>
+                <div class="arrow">&#x25BC;</div>
+            </div>
+        </label>
+
+        <div class="content">
+            <div class="cats">
+
+                <div class="cat-card">
+                    <div class="cat-title pos">Positive <span>12</span></div>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id congue dolor.
+                </div>
+
+                <div class="cat-card">
+                    <div class="cat-title neu">Neutral <span>5</span></div>
+                    Lorem ipsum dolor sit amet. Vivamus vitae nunc sed tincidunt.
+                </div>
+
+                <div class="cat-card">
+                    <div class="cat-title neg">Negative <span>5</span></div>
+                    Lorem ipsum dolor sit amet. Proin id congue dolor.
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ITEM 3 -->
+    <div class="item">
+        <input type="radio" name="acc" id="acc3">
+        <label for="acc3" class="title">
+            <div class="left">
+                <div class="score">33</div>
+                Lorem
+            </div>
+
+            <div class="right">
+                <span>7 opinion</span>
+                <div class="icon">🙂 3</div>
+                <div class="icon">😐 2</div>
+                <div class="icon">🙁 2</div>
+                <div class="arrow">&#x25BC;</div>
+            </div>
+        </label>
+
+        <div class="content">
+            <div class="cats">
+
+                <div class="cat-card">
+                    <div class="cat-title pos">Positive <span>3</span></div>
+                    Positive comments here. Vivamus aliquet elit ac nisl cursus, vel ultricies mi lacinia.
+                </div>
+
+                <div class="cat-card">
+                    <div class="cat-title neu">Neutral <span>2</span></div>
+                    Neutral statements. Suspendisse potenti. Integer lorem magna, posuere.
+                </div>
+
+                <div class="cat-card">
+                    <div class="cat-title neg">Negative <span>2</span></div>
+                    Some users reported issues. Aenean vel ipsum feugiat, laoreet magna non.
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

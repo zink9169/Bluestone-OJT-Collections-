@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Odoo Dashboard with Donut Labels Inside</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+      :root {
+        --primary-purple: #724b68;
+        --light-purple-bg: rgb(240, 230, 238);
+        --sidebar-bg: white;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial;
+      }
+
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        background: #f5f5f5;
+      }
+
+      /* Top Navbar */
+      .top-navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 40px;
+        background: var(--primary-purple);
+        color: white;
+      }
+
+      .left-section {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .search-box input {
+        padding: 10px 15px;
+        border-radius: 20px;
+        border: none;
+        width: 450px;
+      }
+
+      .icons i {
+        font-size: 18px;
+        margin-left: 20px;
+        cursor: pointer;
+        color: white;
+      }
+
+      /* Main layout */
+      .main-layout {
+        display: flex;
+        flex: 1;
+        overflow: hidden; 
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 280px;
+        background: var(--sidebar-bg);
+        border-right: 1px solid #ddd;
+        padding-top: 20px;
+      }
+
+      .menu-item {
+        padding: 20px 30px;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .menu-item:hover {
+        background: var(--light-purple-bg);
+        color: var(--primary-purple);
+      }
+
+      .active-menu {
+        background: var(--light-purple-bg);
+        color: var(--primary-purple);
+        font-weight: bold;
+      }
+
+      .content-area {
+        flex: 1;
+        padding: 40px;
+        overflow-y: auto;
+      }
+
+      .content-area::-webkit-scrollbar {
+        width: 0px;
+      }
+
+      .content-area {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .dashboard-header h1 {
+        margin-bottom: 20px;
+        color: var(--primary-purple);
+        font-size: 25px;
+      }
+
+      .cards-container {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+      }
+
+      .card {
+        flex: 1;
+        min-width: 200px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .card h4 {
+        color: rgb(75, 74, 74);
+        margin-bottom: 10px;
+      }
+
+      .card p {
+        font-size: 28px;
+        color: var(--primary-purple);
+        font-weight: bold;
+      }
+
+      .chart-container {
+        max-width: 600px;
+        margin-bottom: 40px;
+      }
+
+      .page {
+        display: none;
+      }
+
+      .active-page {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top Navbar -->
+    <div class="top-navbar">
+      <div class="left-section">
+        <div class="logo" style="font-size: 25px; font-weight: bold">Odoo</div>
+        <div class="search-box">
+          <input type="text" placeholder="Search..." />
+        </div>
+      </div>
+      <div class="icons">
+        <i class="fas fa-bell"></i>
+        <i class="fas fa-user"></i>
+      </div>
+    </div>
+
+    <!-- Main layout -->
+    <div class="main-layout">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div
+          class="menu-item active-menu"
+          onclick="showPage('salesPage', this)"
+        >
+          <i class="fas fa-chart-line"></i> Sales
+        </div>
+        <div class="menu-item" onclick="showPage('inventoryPage', this)">
+          <i class="fas fa-warehouse"></i> Inventory
+        </div>
+        <div class="menu-item"><i class="fas fa-handshake"></i> CRM</div>
+        <div class="menu-item"><i class="fas fa-file-alt"></i> Reports</div>
+        <div class="menu-item"><i class="fas fa-cog"></i> Settings</div>
+      </div>
+
+      <!-- Content area -->
+      <div class="content-area">
+        <!-- Sales Page -->
+        <div id="salesPage" class="page active-page">
+          <div class="dashboard-header"><h1>Sales Dashboard</h1></div>
+          <div class="cards-container">
+            <div class="card">
+              <h4>Total Sales</h4>
+              <p>$42,500</p>
+            </div>
+            <div class="card">
+              <h4>Pending Orders</h4>
+              <p>18</p>
+            </div>
+            <div class="card">
+              <h4>Completed Orders</h4>
+              <p>157</p>
+            </div>
+          </div>
+          <div class="chart-container"><canvas id="salesDonut"></canvas></div>
+        </div>
+
+        <!-- Inventory Page -->
+        <div id="inventoryPage" class="page">
+          <div class="dashboard-header"><h1>Inventory Dashboard</h1></div>
+          <div class="cards-container">
+            <div class="card">
+              <h4>Total Stock</h4>
+              <p>50 Units</p>
+            </div>
+            <div class="card">
+              <h4>Low Stock Items</h4>
+              <p>12 Items</p>
+            </div>
+            <div class="card">
+              <h4>Out of Stock</h4>
+              <p>5 Items</p>
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas id="stockPieChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showPage(pageId, element) {
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active-page"));
+        document.getElementById(pageId).classList.add("active-page");
+        document
+          .querySelectorAll(".menu-item")
+          .forEach((m) => m.classList.remove("active-menu"));
+        element.classList.add("active-menu");
+      }
+
+      new Chart(document.getElementById("salesDonut"), {
+        type: "doughnut",
+        data: {
+          labels: ["Completed", "Pending", "Cancelled"],
+          datasets: [
+            {
+              data: [157, 18, 6],
+              backgroundColor: [
+                "rgba(126,82,115,0.8)",
+                "rgba(255,206,86,0.8)",
+                "rgba(255,99,132,0.8)",
+              ],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          plugins: { legend: { display: false }, tooltip: { enabled: true } },
+        },
+        plugins: [
+          {
+            id: "insideLabels",
+            afterDraw(chart) {
+              const { ctx } = chart;
+              ctx.save();
+              ctx.font = "16px Arial";
+              ctx.fillStyle = "#333";
+              ctx.textAlign = "center";
+              const meta = chart.getDatasetMeta(0);
+              const x = meta.data[0].x;
+              const y = meta.data[0].y;
+              ctx.fillText(`Completed: 157`, x, y - 15);
+              ctx.fillText(`Pending: 18`, x, y + 5);
+              ctx.fillText(`Cancelled: 6`, x, y + 25);
+              ctx.restore();
+            },
+          },
+        ],
+      });
+
+      // Inventory Pie Chart
+      new Chart(document.getElementById("stockPieChart"), {
+        type: "pie",
+        data: {
+          labels: ["Total Stock", "Low Stock", "Out of Stock"],
+          datasets: [
+            {
+              data: [50, 12, 5],
+              backgroundColor: [
+                "rgba(126,82,115,0.8)",
+                "rgba(255,206,86,0.8)",
+                "rgba(255,99,132,0.8)",
+              ],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: { plugins: { legend: { position: "bottom" } } },
+      });
+    </script>
+  </body>
+</html>

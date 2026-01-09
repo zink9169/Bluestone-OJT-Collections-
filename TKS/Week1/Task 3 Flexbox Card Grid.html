@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Grid Cards</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: white;
+        padding: 20px;
+      }
+
+      h1 {
+        margin: 0 0 15px 0;
+        font-size: 2em;
+      }
+
+      p.intro {
+        margin: 0 0 30px 0;
+        color: #a4a4a4;
+        font-size: 1.1em;
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 20px;
+      }
+
+      .card {
+        background: #f0f0f0;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        transition: 0.2s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      .card h3 {
+        margin: 0 0 10px;
+      }
+
+      .card p {
+        margin: 0;
+        color: #555;
+        line-height: 1.2;
+        text-align: justify;
+      }
+
+      @media (max-width: 1200px) {
+        .card-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .card-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .card-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>FlexBox Card Grid</h1>
+    <p class="intro">
+      Resize the browser to see the responsive layout changes across different
+      screen sizes.
+    </p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>Product 1</h3>
+        <p>
+          Designed for everyday use with a balance of style and functionality.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Product 2</h3>
+        <p>
+          Built to deliver reliable performance and long-lasting durability.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Product 3</h3>
+        <p>
+          Modern design combined with convenient and user-friendly features.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Product 4</h3>
+        <p>Made with attention to detail for comfort and superior quality.</p>
+      </div>
+      <div class="card">
+        <h3>Product 5</h3>
+        <p>Perfect for users who value versatility, simplicity, and style.</p>
+      </div>
+      <div class="card">
+        <h3>Product 6</h3>
+        <p>Offers practical features that enhance and simplify your tasks.</p>
+      </div>
+      <div class="card">
+        <h3>Product 7</h3>
+        <p>High-quality materials paired with a clean and functional design.</p>
+      </div>
+      <div class="card">
+        <h3>Product 8</h3>
+        <p>Created to support your daily needs with efficiency and ease.</p>
+      </div>
+    </div>
+  </body>
+</html>
