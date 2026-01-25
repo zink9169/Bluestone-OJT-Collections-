@@ -1,6 +1,6 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
-from odoo.tools.float_utils import float_compare, float_is_zero  # ← ADD THIS IMPORT
+from odoo.tools.float_utils import float_compare, float_is_zero
 from datetime import datetime, timedelta
 
 
@@ -13,7 +13,7 @@ class Property(models.Model):
     description = fields.Text()
     postcode = fields.Char()
     date_availability = fields.Date(
-        default=lambda self: datetime.today() + timedelta(days=90),
+        default=lambda self: fields.Date.today() + timedelta(days=90),
         copy=False
     )
     expected_price = fields.Float(required=True)
@@ -69,7 +69,7 @@ class Property(models.Model):
     sold_button_text = fields.Char(
         compute="_compute_button_text",
         string="Sold Button Text",
-        store=False  # Don't store, compute on the fly
+        store=False
     )
     sold_button_class = fields.Char(
         compute="_compute_button_text",
@@ -105,7 +105,8 @@ class Property(models.Model):
     def _compute_best_price(self):
         for record in self:
             if record.offer_ids:
-                valid_offers = record.offer_ids.filtered(lambda o: o.status != 'refused')
+                # Only consider pending and accepted offers for best price
+                valid_offers = record.offer_ids.filtered(lambda o: o.status in ['pending', 'accepted'])
                 if valid_offers:
                     record.best_price = max(valid_offers.mapped('price'))
                 else:
@@ -134,8 +135,15 @@ class Property(models.Model):
                 record.cancel_button_class = "btn-danger"
 
     # === PYTHON CONSTRAINTS ===
+    @api.constrains('expected_price')
+    def _check_expected_price_positive(self):
+        """Check that expected price is strictly positive"""
+        for record in self:
+            if float_compare(record.expected_price, 0.0, precision_digits=2) <= 0:
+                raise ValidationError("The expected price must be strictly positive (greater than zero).")
+
     @api.constrains('selling_price', 'expected_price')
-    def _check_selling_price_90_percent(self):  # ← RENAMED to avoid conflict
+    def _check_selling_price_90_percent(self):
         """Check selling price is not lower than 90% of expected price"""
         for record in self:
             # Skip check if selling price is 0 (not set yet)
@@ -162,6 +170,29 @@ class Property(models.Model):
             self.garden_area = 0
             self.garden_orientation = False
 
+    # === CREATE AND WRITE VALIDATIONS ===
+    @api.model
+    def create(self, vals):
+        """Override create to validate expected price and set initial state"""
+        # Validate expected price
+        if 'expected_price' in vals and vals.get('expected_price', 0.0) <= 0:
+            raise ValidationError("The expected price must be strictly positive (greater than zero).")
+
+        property = super().create(vals)
+        property._compute_offer_state()
+        return property
+
+    def write(self, vals):
+        """Override write to validate expected price and update state when offers change"""
+        # Validate expected price
+        if 'expected_price' in vals and vals['expected_price'] <= 0:
+            raise ValidationError("The expected price must be strictly positive (greater than zero).")
+
+        result = super().write(vals)
+        if 'offer_ids' in vals:
+            self._compute_offer_state()
+        return result
+
     # === ACTION METHODS ===
     def action_sold(self):
         for record in self:
@@ -169,6 +200,12 @@ class Property(models.Model):
                 raise UserError("Canceled properties cannot be sold.")
             if record.state == 'sold':
                 raise UserError("Property is already sold.")
+
+            # Check if there's an accepted offer before marking as sold
+            accepted_offers = record.offer_ids.filtered(lambda o: o.status == 'accepted')
+            if not accepted_offers:
+                raise UserError("Cannot mark as sold without an accepted offer.")
+
             record.state = 'sold'
         return True
 
@@ -178,6 +215,17 @@ class Property(models.Model):
                 raise UserError("Sold properties cannot be canceled.")
             if record.state == 'canceled':
                 raise UserError("Property is already canceled.")
+
+            # Refuse all pending offers when canceling property
+            pending_offers = record.offer_ids.filtered(lambda o: o.status == 'pending')
+            if pending_offers:
+                pending_offers.write({'status': 'refused'})
+
+            # Also refuse accepted offers
+            accepted_offers = record.offer_ids.filtered(lambda o: o.status == 'accepted')
+            if accepted_offers:
+                accepted_offers.write({'status': 'refused'})
+
             record.state = 'canceled'
         return True
 
@@ -188,17 +236,32 @@ class Property(models.Model):
         for prop in self:
             if prop.state in ['sold', 'canceled']:
                 continue
+
             if prop.offer_ids:
+                # Check if any offer is accepted
                 if any(offer.status == 'accepted' for offer in prop.offer_ids):
                     prop.state = 'offer_accepted'
-                else:
+                # Check if any offer is pending (not all are refused)
+                elif any(offer.status in ['pending', 'accepted'] for offer in prop.offer_ids):
                     prop.state = 'offer_received'
+                else:
+                    # All offers are refused
+                    prop.state = 'new'
             else:
                 prop.state = 'new'
 
-    # Override write to update state when offers change
-    def write(self, vals):
-        result = super().write(vals)
-        if 'offer_ids' in vals:
-            self._compute_offer_state()
-        return result
+    # === ADDITIONAL VALIDATIONS ===
+    @api.constrains('offer_ids')
+    def _check_offer_acceptance(self):
+        """Ensure only one offer is accepted per property"""
+        for property in self:
+            accepted_offers = property.offer_ids.filtered(lambda o: o.status == 'accepted')
+            if len(accepted_offers) > 1:
+                raise ValidationError("Only one offer can be accepted per property.")
+
+    def unlink(self):
+        """Prevent deletion of properties in certain states"""
+        for property in self:
+            if property.state in ['sold', 'offer_accepted']:
+                raise UserError(f"Cannot delete a property that is {property.state}.")
+        return super().unlink()
