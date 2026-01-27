@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Kanban View - Odoo 19 COMPLIANT -->
+    <record id="view_estate_property_kanban" model="ir.ui.view">
+        <field name="name">estate.property.kanban</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="property_type_id" disable_drag_drop="true">
+                <!-- Fields needed for QWeb logic -->
+                <field name="state"/>
+                <field name="expected_price"/>
+                <field name="best_price"/>
+                <field name="selling_price"/>
+                <field name="property_type_id"/>
+                <field name="tag_ids"/>
+
+                <templates>
+                    <!-- Odoo 19 requires BOTH templates! -->
+                    <t t-name="kanban-box">
+                        <!-- This is the main template -->
+                        <div t-name="card" t-attf-class="o_kanban_record #{kanban_color}">
+                            <t t-call="kanban-card"/>
+                        </div>
+                    </t>
+
+                    <!-- Your card content template -->
+                    <t t-name="kanban-card">
+                        <div class="o_kanban_record_body">
+                            <!-- Property Name -->
+                            <div class="o_kanban_record_title">
+                                <strong><field name="name"/></strong>
+                            </div>
+
+                            <!-- State -->
+                            <div class="mb-1">
+                                <field name="state" widget="badge"/>
+                            </div>
+
+                            <!-- Expected Price (Always shown) -->
+                            <div class="o_kanban_record_content mb-1">
+                                <small>Expected: </small>
+                                <strong><field name="expected_price"/>$</strong>
+                            </div>
+
+                            <!-- Best Price (Conditional) -->
+                            <div t-if="record.state.raw_value in ['offer_received', 'offer_accepted', 'sold']"
+                                 class="text-success mb-1">
+                                <small>Best Offer: </small>
+                                <strong><field name="best_price"/>$</strong>
+                            </div>
+
+                            <!-- Selling Price (Conditional) -->
+                            <div t-if="record.state.raw_value in ['offer_accepted', 'sold']"
+                                 class="text-primary mb-1">
+                                <small>Selling: </small>
+                                <strong><field name="selling_price"/>$</strong>
+                            </div>
+
+                            <!-- Tags -->
+                            <div class="o_kanban_record_footer mt-2">
+                                <field name="tag_ids" widget="many2many_tags"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>

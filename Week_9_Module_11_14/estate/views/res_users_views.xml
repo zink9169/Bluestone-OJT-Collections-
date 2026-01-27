@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- First, create a specific list view for properties in users context -->
+    <record id="view_property_list_in_users" model="ir.ui.view">
+        <field name="name">estate.property.list.in.users</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <list string="Properties">
+                <field name="name"/>
+                <field name="property_type_id" string="Type"/>
+                <field name="state" widget="badge"/>
+                <field name="expected_price"/>
+                <field name="best_price"/>
+                <field name="selling_price"/>
+                <field name="bedrooms"/>
+                <field name="total_area"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Then inherit the Users form view -->
+    <record id="view_users_form_inherit_estate" model="ir.ui.view">
+        <field name="name">res.users.form.inherit.estate</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <!-- Find the notebook and add a new page -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Real Estate Properties">
+                    <!-- Reference the specific list view we created -->
+                    <field name="property_ids">
+                        <list>
+                            <field name="name"/>
+                            <field name="property_type_id" string="Type"/>
+                            <field name="state" widget="badge"/>
+                            <field name="expected_price"/>
+                            <field name="best_price"/>
+                            <field name="selling_price"/>
+                            <field name="bedrooms"/>
+                            <field name="total_area"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
