@@ -74,7 +74,7 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <kanban default_group_by="property_type_id" disable_drag_drop="true">
-                <!-- Fields needed for QWeb logic -->
+                <!-- Fields -->
                 <field name="state" />
                 <field name="expected_price" />
                 <field name="best_price" />
