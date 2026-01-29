@@ -1,56 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Property List View -->
-    <record id="view_estate_property_list" model="ir.ui.view">
-        <field name="name">estate.property.list</field>
-        <field name="model">estate.property</field>
-        <field name="arch" type="xml">
-            <list
-                decoration-success="state=='offer_received'"
-                decoration-info="state=='offer_accepted'"
-                decoration-muted="state=='sold'">
-                <field name="name" />
-                <field name="property_type_id" />
-                <field name="tag_ids" widget="many2many_tags" />
-                <field name="expected_price" />
-                <field name="best_price" />
-                <field name="selling_price" />
-                <field name="bedrooms" />
-                <field name="total_area" />
-                <field name="date_availability" />
-                <field name="state" />
-                <field name="buyer_id" />
-            </list>
-        </field>
-    </record>
-
     <!-- Property Form View -->
     <record id="view_estate_property_form" model="ir.ui.view">
         <field name="name">estate.property.form</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form>
-
-                <!-- Header Buttons -->
                 <header>
-                    <button name="action_sold"
-                            type="object"
-                            string="Mark as Sold"
-                            class="btn-primary"
-                            invisible="state in ('sold','canceled')" />
-                    <button name="action_cancel"
-                            type="object"
-                            string="Cancel"
-                            class="btn-secondary"
-                            invisible="state in ('sold','canceled')" />
-                    <field name="state"
-                           widget="statusbar"
-                           statusbar_visible="new,offer_received,offer_accepted,sold" />
+                    <button name="action_sold" type="object" string="Mark as Sold"
+                        class="btn-primary" invisible="state in ('sold','canceled')" />
+                    <button name="action_cancel" type="object" string="Cancel"
+                        class="btn-secondary" invisible="state in ('sold','canceled')" />
+                    <field name="state" widget="statusbar"
+                        statusbar_visible="new,offer_received,offer_accepted,sold" />
                 </header>
 
                 <sheet>
-                    <!-- Main Property Fields Outside Notebook -->
                     <group>
                         <field name="name" placeholder="Property Name" />
                         <field name="description" />
@@ -68,10 +34,7 @@
                         <field name="tag_ids" widget="many2many_tags" />
                     </group>
 
-                    <!-- Notebook with Features and Offers -->
                     <notebook>
-
-                        <!-- Features Tab -->
                         <page string="Features">
                             <group>
                                 <field name="facades" />
@@ -82,37 +45,133 @@
                             </group>
                         </page>
 
-                        <!-- Offers Tab -->
                         <page string="Offers">
                             <field name="offer_ids">
                                 <list editable="bottom"
-                                      decoration-danger="status=='refused'"
-                                      decoration-success="status=='accepted'">
+                                    decoration-danger="status=='refused'"
+                                    decoration-success="status=='accepted'">
                                     <field name="price" />
                                     <field name="partner_id" />
                                     <field name="validity" />
                                     <field name="date_deadline" />
                                     <field name="status" />
-                                    <button name="action_accept" type="object" string="Accept"
-                                            class="oe_highlight" />
-                                    <button name="action_refuse" type="object" string="Refuse"
-                                            class="oe_stat_button" />
+                                    <button name="action_accept" type="object"
+                                        string="Accept" class="oe_highlight" />
+                                    <button name="action_refuse" type="object"
+                                        string="Refuse" class="oe_stat_button" />
                                 </list>
                             </field>
                         </page>
-
                     </notebook>
                 </sheet>
-
             </form>
         </field>
     </record>
 
-    <!-- Action -->
+    <!-- Property Kanban View  -->
+    <record id="view_estate_property_kanban" model="ir.ui.view">
+        <field name="name">estate.property.kanban</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="property_type_id" disable_drag_drop="true">
+                <!-- Fields needed for QWeb logic -->
+                <field name="state" />
+                <field name="expected_price" />
+                <field name="best_price" />
+                <field name="selling_price" />
+                <field name="property_type_id" />
+                <field name="tag_ids" />
+                <field name="bedrooms" />
+                <field name="total_area" />
+                <field name="date_availability" />
+                <field name="buyer_id" />
+                <field name="seller_id" />
+                <field name="living_area" />
+
+                <templates>
+                    <!-- Main template wrapper -->
+                    <t t-name="kanban-box">
+                        <div t-name="card" t-attf-class="o_kanban_record #{kanban_color}">
+                            <t t-call="kanban-card" />
+                        </div>
+                    </t>
+
+                    <!-- Card content -->
+                    <t t-name="kanban-card">
+                        <div class="o_kanban_record_body">
+                            <!-- Property Name -->
+                            <div class="o_kanban_record_title">
+                                <strong>
+                                    <field name="name" />
+                                </strong>
+                            </div>
+
+                            <!-- State Badge -->
+                            <div class="mb-1">
+                                <field name="state" widget="badge" />
+                            </div>
+
+                            <!-- Expected Price -->
+                            <div class="o_kanban_record_content mb-1">
+                                <small>Expected: </small>
+                                <strong><field name="expected_price" />$</strong>
+                            </div>
+
+                            <!-- Best Price -->
+
+                            <div class="text-success mb-1"
+                                invisible="state not in ('offer_received','offer_accepted','sold')">
+                                <small>Best Offer: </small>
+                                <strong><field name="best_price" />$</strong>
+                            </div>
+
+                            <!-- Selling Price-->
+
+                            <div class="mb-1"
+                                invisible="state not in ('offer_accepted','sold')">
+                                <small>Selling: </small>
+                                <strong><field name="selling_price" />$</strong>
+                            </div>
+                            <!-- Bedrooms & Total Area -->
+                            <div class="mb-1">
+                                <small>Bedrooms: </small><field name="bedrooms" />
+                                <small> | Total
+                                Area: </small><field name="total_area" /> m² </div>
+
+                            <!-- Living Area -->
+                            <div class="mb-1">
+                                <small>Living Area: </small><field name="living_area" /> m² </div>
+
+                            <!-- Availability -->
+                            <div class="mb-1">
+                                <small>Available from: </small>
+                                <field name="date_availability" />
+                            </div>
+
+                            <!-- Seller / Buyer -->
+                            <div class="mb-1">
+                                <small>Seller: </small>
+                                <field name="seller_id" />
+                                <small> | Buyer: </small>
+                                <field name="buyer_id" />
+                            </div>
+
+                            <!-- Tags -->
+                            <div class="o_kanban_record_footer mt-2">
+                                <field name="tag_ids" widget="many2many_tags" />
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Action for Properties -->
     <record id="action_estate_property" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">kanban,list,form</field>
     </record>
 
 </odoo>
