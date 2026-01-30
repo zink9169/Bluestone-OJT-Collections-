@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <odoo>
 
     <!-- Property Form View -->
@@ -167,7 +167,7 @@
         </field>
     </record>
 
-    <!-- Action for Properties -->
+    <!-- Action  -->
     <record id="action_estate_property" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
