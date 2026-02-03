@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Main menu item -->
+        <menuitem id="menu_todo_root"
+                  name="Todo App"
+                  sequence="10"/>
+
+        <!-- Submenu that calls the action -->
+        <menuitem id="menu_todo_app"
+                  name="My Todo List"
+                  parent="menu_todo_root"
+                  action="todo_owl.action_todo_app"
+                  sequence="10"/>
+    </data>
+</odoo>

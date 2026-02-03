@@ -1,0 +1,28 @@
+<templates xml:space="preserve">
+    <t t-name="todo_owl.TodoItem" owl="1">
+        <div class="list-group-item d-flex align-items-center justify-content-between py-2">
+
+            <!-- Left side -->
+            <div class="d-flex align-items-center gap-2">
+                <input type="checkbox"
+                       class="form-check-input"
+                       t-att-checked="props.todo.isCompleted"
+                       t-on-change="props.toggleState"/>
+
+                <span t-att-class="{
+                    'text-decoration-line-through text-muted': props.todo.isCompleted
+                }">
+                    <t t-esc="props.todo.description"/>
+                </span>
+            </div>
+
+            <!-- Right side delete -->
+            <button class="btn btn-sm btn-link text-danger px-1"
+                    t-on-click="props.removeTodo"
+                    title="Delete">
+                ✕
+            </button>
+
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,34 @@
+<templates xml:space="preserve">
+<t t-name="todo_owl.TodoList" owl="1">
+    <!-- Bootstrap centering -->
+    <div class="d-flex justify-content-center align-items-center min-vh-100">
+        <div class="todo-card p-4 shadow-sm" style="width: 100%; max-width: 500px;">
+
+            <h2 class="text-center mb-4">Todo List</h2>
+
+            <input type="text"
+                   t-ref="todoInput"
+                   class="form-control mb-3"
+                   placeholder="Add a todo (Press Enter)"
+                   t-on-keyup="addTodo"/>
+
+            <div class="list-group list-group-flush">
+                <t t-foreach="todos" t-as="todo" t-key="todo.id">
+                    <TodoItem todo="todo"
+                              toggleState="toggleTodo.bind(this, todo.id)"
+                              removeTodo="deleteTodo.bind(this, todo.id)"/>
+                </t>
+            </div>
+
+            <!-- Empty state -->
+            <t t-if="todos.length === 0">
+                <div class="text-center text-muted py-5">
+                    <i class="fa fa-clipboard fa-3x mb-3"></i>
+                    <p>No tasks yet. Add your first task above!</p>
+                </div>
+            </t>
+
+        </div>
+    </div>
+</t>
+</templates>

@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <!-- YOU MUST CREATE THE ACTION RECORD -->
+        <record id="action_todo_app" model="ir.actions.client">
+            <field name="name">Todo List</field>
+            <field name="tag">todo_owl.app</field>
+            <field name="params">{}</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,15 @@
+.todo-card {
+    max-width: 320px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.todo-card .list-group-item {
+    border: none;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.todo-card .list-group-item:last-child {
+    border-bottom: none;
+}
