@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="todo_owl.TodoApp">
+        <div class="o_action_manager o_content p-4">
+            <div class="o_list_view o_view_controller shadow-sm bg-view p-4 mx-auto mt-5" style="max-width: 500px; border-radius: 12px;">
+                <h2 class="mb-4">📝 Todo List</h2>
+
+                <div class="input-group mb-3">
+                    <input type="text" t-model="state.newTask" class="form-control"
+                           placeholder="New task..." t-on-keydown="(ev) => ev.key === 'Enter' &amp;&amp; addTodo()"/>
+                    <button class="btn btn-primary" t-on-click="addTodo">Add</button>
+                </div>
+
+                <ul class="list-group">
+                    <t t-foreach="state.todos" t-as="todo" t-key="todo.id">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <input type="checkbox" class="form-check-input me-2"
+                                       t-att-checked="todo.done" t-on-change="() => this.toggleTodo(todo)"/>
+                                <span t-att-class="todo.done ? 'text-decoration-line-through text-muted' : ''">
+                                    <t t-esc="todo.text"/>
+                                </span>
+                            </div>
+                            <button class="btn btn-sm text-danger" t-on-click="() => this.deleteTodo(todo.id)">
+                                <i class="fa fa-trash"/>
+                            </button>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+        </div>
+    </t>
+</templates>

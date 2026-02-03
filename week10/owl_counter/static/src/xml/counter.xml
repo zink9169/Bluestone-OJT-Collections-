@@ -1,0 +1,21 @@
+<templates xml:space="preserve">
+    <t t-name="owl_counter.CounterTemplate">
+        <div class="o_content p-4">
+            <h2>Total: <t t-esc="total"/></h2>
+
+            <div class="mt-3">
+                <h4>Counter 1: <t t-esc="state.counter1"/></h4>
+                <button class="btn btn-primary me-1" t-on-click="inc1">+</button>
+                <button class="btn btn-secondary me-1" t-on-click="dec1">-</button>
+                <button class="btn btn-danger" t-on-click="reset1">Reset</button>
+            </div>
+
+            <div class="mt-4">
+                <h4>Counter 2: <t t-esc="state.counter2"/></h4>
+                <button class="btn btn-primary me-1" t-on-click="inc2">+</button>
+                <button class="btn btn-secondary me-1" t-on-click="dec2">-</button>
+                <button class="btn btn-danger" t-on-click="reset2">Reset</button>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_todo_owl" model="ir.actions.client">
+        <field name="name">Todo List</field>
+        <field name="tag">todo_owl.todo_action</field>
+    </record>
+
+    <menuitem id="menu_todo_root" name="Todo OWL" sequence="10"/>
+    <menuitem id="menu_todo_list" name="My Tasks" parent="menu_todo_root" action="action_todo_owl"/>
+</odoo>
+

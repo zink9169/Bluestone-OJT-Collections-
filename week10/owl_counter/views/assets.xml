@@ -1,0 +1,17 @@
+<odoo>
+
+    <!-- Client Action -->
+    <record id="action_owl_counter" model="ir.actions.client">
+        <field name="name">OWL Counter</field>
+        <field name="tag">owl_counter.counter_action</field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_owl_counter_root" name="OWL Demo"/>
+
+    <menuitem
+        id="menu_owl_counter"
+        name="Counter"
+        parent="menu_owl_counter_root"
+        action="action_owl_counter"/>
+</odoo>
