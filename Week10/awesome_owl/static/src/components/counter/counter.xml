@@ -1,0 +1,17 @@
+<t t-name="awesome_owl.Counter">
+    <div class="border p-4 shadow-sm text-center bg-white rounded" style="min-width: 350px;">
+        <h3 class="text-primary">
+            <t t-esc="state.value"/>
+        </h3>
+        <div class="d-flex">
+            <button class="btn btn-outline-primary w-100 mx-2" t-on-click="increment">
+                <i class="oi oi-plus"/>
+                Increase
+            </button>
+            <button class="btn btn-outline-primary w-100 mx-2" t-on-click="decrement">
+                <i class="oi oi-minus"/>
+                Decrease
+            </button>
+        </div>
+    </div>
+</t>
