@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="project_dashboard.DashboardMain" owl="1">
+
+        <div class="o_dashboard_container p-4 h-100 bg-100" style="overflow-y:auto;">
+
+            <!-- SEARCH BAR -->
+            <div class="row mb-4 justify-content-center">
+                <div class="col-md-5">
+                    <div class="input-group shadow-sm rounded-pill bg-white px-3 py-1">
+                        <input type="text" class="form-control border-0 shadow-none"
+                               placeholder="Search tasks..."/>
+                        <span class="input-group-text bg-white border-0">
+                            <i class="fa fa-search text-muted"/>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DASHBOARD SECTIONS -->
+            <div class="row g-4" t-if="state.data.sections">
+
+                <t t-foreach="Object.keys(state.data.sections)"
+                   t-as="key"
+                   t-key="key">
+
+                    <div class="col-md-4">
+                        <div class="card shadow-sm border-0 h-100"
+                             style="border-radius:15px;">
+
+                            <!-- HEADER (CLICKABLE) -->
+                            <div class="card-header bg-white d-flex justify-content-between align-items-center
+                                        border-0 pt-4 px-4"
+                                 style="cursor:pointer"
+                                 t-on-click="() => this.openSection(key)">
+
+                                <h5 class="fw-bold mb-0"
+                                    t-att-style="'color:' + state.data.sections[key].color"
+                                    t-esc="state.data.sections[key].title"/>
+
+                                <span class="badge rounded-pill bg-light text-dark fs-6 px-3 py-2"
+                                      t-esc="state.data.sections[key].count"/>
+                            </div>
+
+                            <!-- BODY -->
+                            <div class="card-body px-4">
+
+                                <t t-foreach="state.data.sections[key].tasks"
+                                   t-as="task"
+                                   t-key="task.id">
+
+                                    <div class="py-3 border-bottom d-flex justify-content-between align-items-center"
+                                         style="cursor:pointer"
+                                         t-on-click="() => this.openTask(task.id)">
+
+                                        <div class="text-truncate" style="max-width:70%;">
+                                            <div class="fw-bold text-primary"
+                                                 t-esc="task.name"/>
+
+                                            <small class="text-muted">
+                                                <i class="fa fa-folder-open-o me-1"/>
+                                                <t t-if="task.project_id"
+                                                   t-esc="task.project_id[1]"/>
+                                                <t t-else="">Private</t>
+                                            </small>
+                                        </div>
+
+                                        <div class="text-end">
+                                            <small t-if="task.date_deadline"
+                                                   t-att-style="'font-weight:bold;color:' +
+                                                   (task.date_deadline &lt; state.data.dates.today
+                                                    ? '#f44336'
+                                                    : (task.date_deadline &lt;= state.data.dates.next_week
+                                                       ? '#FFB300'
+                                                       : '#6c757d'))">
+                                                Due: <t t-esc="task.date_deadline"/>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </t>
+
+                                <!-- EMPTY STATE -->
+                                <div t-if="state.data.sections[key].count === 0"
+                                     class="text-center text-muted py-5">
+                                    <i class="fa fa-inbox fa-2x opacity-25"/>
+                                    <div>No tasks in this category</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </t>
+
+            </div>
+        </div>
+    </t>
+</templates>
