@@ -1,0 +1,272 @@
+.o_task_dashboard {
+  padding: 20px;
+}
+
+.task-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.task-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.task-card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-weight: 600;
+
+  .count {
+    background: #eee;
+    border-radius: 20px;
+    padding: 2px 8px;
+    font-size: 12px;
+  }
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-top: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #f5f9ff;
+  }
+}
+
+.task-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-name {
+  font-size: 14px;
+  font-weight: 500;
+
+  .task-link {
+    color: #2196f3;
+    text-decoration: none;
+    cursor: pointer;
+    display: block;
+
+    &:hover {
+      text-decoration: underline;
+      color: #0d47a1;
+    }
+  }
+}
+
+.task-project {
+  font-size: 12px;
+  color: #777;
+
+  .project-link {
+    color: #2196f3;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+      color: #0d47a1;
+    }
+  }
+}
+
+.task-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+// Deadline color classes
+.deadline-overdue {
+  font-size: 12px;
+  color: #f44336;
+  font-weight: 600;
+}
+
+.deadline-near {
+  font-size: 12px;
+  color: #ff9800;
+  font-weight: 600;
+}
+
+.deadline-far {
+  font-size: 12px;
+  color: #333;
+  font-weight: 600;
+}
+
+.dashboard-search {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.dashboard-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  justify-content: center;
+
+  button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 500;
+    transition: opacity 0.2s, transform 0.1s;
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+// Button Colors
+.btn-new {
+  background-color: #4caf50;
+}
+
+.btn-progress {
+  background-color: #2196f3;
+}
+
+.btn-overdue {
+  background-color: #f44336;
+}
+
+.btn-done {
+  background-color: #9c27b0;
+}
+
+.btn-create {
+  background-color: #00bcd4;
+  font-weight: 600;
+}
+
+.btn-urgent {
+  background-color: #9C1b31;
+  font-weight: 600;
+}
+
+
+// ADD REFRESH BUTTON STYLE
+.btn-refresh {
+  background-color: #795548;
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 4px 12px;
+  background: #fff;
+  width: fit-content;
+  transition: border-color 0.2s;
+
+  &:focus-within {
+    border-color: #4caf50;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+  }
+
+  input {
+    border: none;
+    outline: none;
+    width: 180px;
+    padding: 6px 0;
+    font-size: 14px;
+    background: transparent;
+    order: 1;
+
+    &::placeholder {
+      color: #999;
+    }
+  }
+
+  .search-icon {
+    margin-left: 8px;
+    color: #888;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    order: 2;
+  }
+}
+
+
+
+.state-new {
+  background: #e0e0e0;
+}
+
+.state-progress {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.state-change {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.state-done {
+  background: #d4edda;
+  color: #155724;
+}
+
+
+
+
+
+.task-state {
+    position: relative;  // <-- ADD THIS LINE
+
+    .state-btn {
+        border: none;
+        padding: 4px 8px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 12px;
+    }
+
+    .state-menu {
+        position: absolute;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        z-index: 10;
+        top: 100%;      // Position below the button
+        left: 0;        // Align with left edge
+        min-width: 150px;  // Give it some width
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);  // Optional: add shadow
+    }
+
+    .state-menu div {
+        padding: 6px 10px;
+        cursor: pointer;
+    }
+
+    .state-menu div:hover {
+        background: #f0f0f0;
+    }
+}
+
+.clickable {
+    cursor: pointer;
+}

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="project_task_dashboard.TaskDashboard">
+    <div class="o_task_dashboard">
+        <!-- Button -->
+        <div class="dashboard-buttons">
+            <button class="btn-new" t-on-click="() => setMode('new')">Change Request</button>
+            <button class="btn-progress" t-on-click="() => setMode('progress')">Progress</button>
+            <button class="btn-overdue" t-on-click="() => setMode('overdue')">Overdue</button>
+            <button class="btn-done" t-on-click="() => setMode('done')">Done</button>
+            <button class="btn-urgent" t-on-click="() => setMode('urgent')">Urgent</button>
+            <button class="btn-create" t-on-click="createNewTask">Create New Task</button>
+            <button class="btn-refresh" t-on-click="refreshDashboard">All</button>
+        </div>
+
+
+        <!-- Search -->
+        <div class="dashboard-search">
+            <div class="search-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Search task..." t-on-input="searchTasks"/>
+            </div>
+        </div>
+
+        <!-- Grid -->
+        <div class="task-grid">
+            <t t-foreach="state.sections" t-as="section" t-key="section.key">
+                <div class="task-card">
+                    <!-- Header -->
+                    <div class="task-card-header">
+<span class="title clickable"
+      t-on-click="() => openSectionTasks(section.key)">
+    <t t-esc="section.title"/>
+</span>
+
+                        <span class="count">
+                            <t t-esc="section.tasks.length"/>
+                        </span>
+                    </div>
+
+                    <!-- Tasks -->
+                    <t t-foreach="section.tasks" t-as="task" t-key="task.id">
+                        <div class="task-item" t-on-click="() => openTask(task.id)">
+                            <div class="task-main" >
+                                <!-- Make task name clickable -->
+                                <div class="task-name" >
+                                    <a href="#" class="task-link">
+                                        <t t-esc="task.name"/>
+                                    </a>
+                                </div>
+                                <!-- Keep project clickable as before -->
+                                <div class="task-project"
+                                     t-on-click.stop="() => openProjectTasks(task.project_id ? task.project_id[0] : null)">
+                                    <a href="#" class="project-link">
+                                        <t t-esc="task.project_id ? task.project_id[1] : 'No Project'"/>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="task-meta">
+                                <span t-att-class="getDateClass(task.date_deadline)">
+                                    <t t-esc="task.date_deadline ? task.date_deadline.split(' ')[0] : ''"/>
+                                </span>
+
+                                <!--                                THis is the area where the button work?-->
+                                <div class="task-state">
+    <button
+            class="state-btn"
+            t-att-class="getStateClass(task.state)"
+            t-on-click.stop="() => toggleStateMenu(task.id)"
+    >
+        <t t-esc="getStateLabel(task.state)"/>
+        ▾
+    </button>
+
+                                    <t t-if="state.openStateTaskId === task.id">
+        <div class="state-menu">
+            <div t-on-click.stop="() => changeTaskState(task.id, '01_in_progress')">
+                In Progress
+            </div>
+            <div t-on-click.stop="() => changeTaskState(task.id, '02_changes_requested')">
+                Change Request
+            </div>
+            <div t-on-click.stop="() => changeTaskState(task.id, '1_done')">
+                Done
+            </div>
+        </div>
+    </t>
+</div>
+
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </div>
+    </div>
+</t>
+</templates>
