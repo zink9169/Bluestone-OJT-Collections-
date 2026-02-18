@@ -1,0 +1,21 @@
+<odoo>
+
+    <!-- Root Menu -->
+    <menuitem id="menu_bss_root"
+              name="School Management"
+              sequence="10"/>
+
+    <!-- Student Action -->
+    <record id="action_student" model="ir.actions.act_window">
+        <field name="name">Students</field>
+        <field name="res_model">bss.student</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_student"
+              name="Students"
+              parent="menu_bss_root"
+              action="action_student"
+              sequence="1"/>
+
+</odoo>

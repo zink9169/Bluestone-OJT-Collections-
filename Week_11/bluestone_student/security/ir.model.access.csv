@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bss_student,bss.student,model_bss_student,,1,1,1,1
+access_bss_class,bss.class,model_bss_class,,1,1,1,1
+access_bss_subject,bss.subject,model_bss_subject,,1,1,1,1
+access_bss_attendance,bss.attendance,model_bss_attendance,,1,1,1,1

@@ -1,0 +1,35 @@
+<odoo>
+
+    <!-- List View -->
+    <record id="view_student_list" model="ir.ui.view">
+        <field name="name">bss.student.list</field>
+        <field name="model">bss.student</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="student_number"/>
+                <field name="class_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_student_form" model="ir.ui.view">
+        <field name="name">bss.student.form</field>
+        <field name="model">bss.student</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="student_number" readonly="1"/>
+                        <field name="class_id"/>
+                        <field name="subject_ids" widget="many2many_tags"/>
+                        <field name="contact_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

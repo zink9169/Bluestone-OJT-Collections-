@@ -1,0 +1,19 @@
+<odoo>
+
+    <!-- Student Sequence -->
+    <record id="seq_student_number" model="ir.sequence">
+        <field name="name">Student Number</field>
+        <field name="code">bss.student</field>
+        <field name="prefix">STD/</field>
+        <field name="padding">4</field>
+    </record>
+
+    <!-- Attendance Sequence -->
+    <record id="seq_attendance_number" model="ir.sequence">
+        <field name="name">Attendance Number</field>
+        <field name="code">bss.attendance</field>
+        <field name="prefix">ATD/%(year)s/%(month)s/</field>
+        <field name="padding">4</field>
+    </record>
+
+</odoo>
