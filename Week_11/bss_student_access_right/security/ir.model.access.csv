@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bss_student_admin,BSS Student Admin,bluestone_student.model_bss_student,bss_student_access_right.group_school_admin,1,1,1,1
+access_bss_student_student,BSS Student User,bluestone_student.model_bss_student,bss_student_access_right.group_school_student,1,0,0,0
+
+access_bss_class_admin,BSS Class Admin,bluestone_student.model_bss_class,bss_student_access_right.group_school_admin,1,1,1,1
+access_bss_class_student,BSS Class User,bluestone_student.model_bss_class,bss_student_access_right.group_school_student,1,0,0,0
+
+access_bss_subject_admin,BSS Subject Admin,bluestone_student.model_bss_subject,bss_student_access_right.group_school_admin,1,1,1,1
+access_bss_subject_student,BSS Subject User,bluestone_student.model_bss_subject,bss_student_access_right.group_school_student,1,0,0,0
+
+access_bss_attendance_admin,BSS Attendance Admin,bluestone_student.model_bss_attendance,bss_student_access_right.group_school_admin,1,1,1,1
+access_bss_attendance_student,BSS Attendance User,bluestone_student.model_bss_attendance,bss_student_access_right.group_school_student,1,0,0,0
+
+access_res_users_student,Res Users Student,base.model_res_users,bss_student_access_right.group_school_student,1,0,0,0
+access_res_partner_student,Res Partner Student,base.model_res_partner,bss_student_access_right.group_school_student,1,0,0,0

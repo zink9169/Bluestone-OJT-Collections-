@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_school_admin" model="res.groups">
+        <field name="name">Student Admin</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="group_school_student" model="res.groups">
+        <field name="name">Student User</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_bss_root"
+              name="School Management"
+              sequence="10"
+              groups="bss_student_access_right.group_school_admin,bss_student_access_right.group_school_student"/>
+
+    <record id="action_student_admin" model="ir.actions.act_window">
+        <field name="name">Students</field>
+        <field name="res_model">bss.student</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_student_admin"
+              name="Students"
+              parent="menu_bss_root"
+              action="action_student_admin"
+              sequence="1"
+              groups="bss_student_access_right.group_school_admin"/>
+
+<record id="action_student_self" model="ir.actions.act_window">
+    <field name="name">My Profile</field>
+    <field name="res_model">bss.student</field>
+    <field name="view_mode">list,form</field>
+    <field name="domain">[('user_id', '=', uid)]</field>
+    <field name="context">{'create': False}</field>
+</record>
+
+    <menuitem id="menu_student_profile"
+              name="My Profile"
+              parent="menu_bss_root"
+              action="action_student_self"
+              sequence="2"
+              groups="bss_student_access_right.group_school_student"/>
+</odoo>

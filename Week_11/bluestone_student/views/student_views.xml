@@ -1,34 +1,84 @@
 <odoo>
 
-    <!-- List View -->
+    <!-- ============================= -->
+    <!-- Student List View -->
+    <!-- ============================= -->
     <record id="view_student_list" model="ir.ui.view">
         <field name="name">bss.student.list</field>
         <field name="model">bss.student</field>
         <field name="arch" type="xml">
-            <list>
+            <list string="Students" default_order="student_number asc">
+                <field name="student_number" string="ID"/>
                 <field name="name"/>
-                <field name="student_number"/>
                 <field name="class_id"/>
+                <field name="subject_ids" widget="many2many_tags" string="Subjects"/>
+                <field name="attendance_percentage" string="Attendance %"/>
             </list>
         </field>
     </record>
 
-    <!-- Form View -->
+    <!-- ============================= -->
+    <!-- Student Form View -->
+    <!-- ============================= -->
     <record id="view_student_form" model="ir.ui.view">
         <field name="name">bss.student.form</field>
         <field name="model">bss.student</field>
         <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group>
-                        <field name="name"/>
-                        <field name="student_number" readonly="1"/>
-                        <field name="class_id"/>
-                        <field name="subject_ids" widget="many2many_tags"/>
-                        <field name="contact_id"/>
-                    </group>
-                </sheet>
-            </form>
+  <form string="Student">
+    <sheet>
+
+        <!-- ================= HEADER CARD ================= -->
+        <div class="oe_title">
+            <h1>
+                <field name="name" readonly="1"/>
+            </h1>
+            <h2>
+                <field name="student_number" readonly="1"/>
+            </h2>
+        </div>
+
+        <group>
+
+            <!-- LEFT : AVATAR + USER -->
+            <group>
+
+                <field name="user_id"/>
+                <field name="class_id"/>
+            </group>
+
+            <!-- RIGHT : KPI -->
+            <group string="Attendance KPI">
+                <field name="attendance_percentage"
+                       readonly="1"/>
+            </group>
+
+        </group>
+
+        <!-- ================= MAIN INFO GRID ================= -->
+        <group col="2">
+
+            <!-- PERSONAL INFO -->
+            <group string="Personal Information">
+                <field name="email" readonly="1"/>
+                <field name="phone" readonly="1"/>
+                <field name="location"/>
+            </group>
+
+            <!-- GUARDIAN INFO -->
+            <group string="Guardian Information">
+                <field name="contact_person"/>
+                <field name="father_name"/>
+            </group>
+
+            <!-- ACADEMIC INFO -->
+            <group string="Subjects">
+                <field name="subject_ids" widget="many2many_tags"/>
+            </group>
+
+        </group>
+
+    </sheet>
+</form>
         </field>
     </record>
 
