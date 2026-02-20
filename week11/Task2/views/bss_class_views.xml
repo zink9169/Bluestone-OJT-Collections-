@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- List View -->
+    <record id="view_bss_class_list" model="ir.ui.view">
+        <field name="name">bss.class.list</field>
+        <field name="model">bss.class</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="subject_ids" widget="many2many_tags"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_bss_class_form" model="ir.ui.view">
+        <field name="name">bss.class.form</field>
+        <field name="model">bss.class</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                        <group>
+                            <field name="code" required="1"/>
+                        </group>
+                    </group>
+                    <group string="Subjects">
+                        <field name="subject_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_bss_class" model="ir.actions.act_window">
+        <field name="name">Classes</field>
+        <field name="res_model">bss.class</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_bss_class"
+              name="Classes"
+              parent="menu_student_root"
+              action="action_bss_class"
+              sequence="20"/>
+</odoo>
