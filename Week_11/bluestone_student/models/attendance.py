@@ -104,13 +104,9 @@ class BssAttendance(models.Model):
                     "Selected student does not belong to this class!"
                 )
 
-        # -----------------------------
-        # SUBJECT BELONGS TO CLASS
-        # (Make sure subject model has class_id)
-        # -----------------------------
         if subject_id and class_id:
-            subject = self.env['bss.subject'].browse(subject_id)
-            if not subject or subject.class_id.id != class_id:
+            class_obj = self.env['bss.class'].browse(class_id)
+            if subject_id not in class_obj.subject_ids.ids:
                 raise ValidationError(
                     "Selected subject does not belong to this class!"
                 )
