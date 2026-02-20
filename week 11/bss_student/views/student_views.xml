@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="view_bss_student_form" model="ir.ui.view">
+            <field name="name">bss.student.form</field>
+            <field name="model">bss.student</field>
+            <field name="arch" type="xml">
+                <form string="Student">
+                    <sheet>
+                        <group>
+                            <field name="student_number" readonly="1" />
+                            <field name="name" />
+                            <field name="user_id"/>
+                            <field name="contact_person_id" />
+                            <field name="class_id" />
+                            <field name="subject_ids" widget="many2many_tags" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Student Tree/List View -->
+        <record id="view_bss_student_tree" model="ir.ui.view">
+            <field name="name">bss.student.tree</field>
+            <field name="model">bss.student</field>
+            <field name="arch" type="xml">
+                <list string="Students">
+                    <field name="student_number" />
+                    <field name="name" />
+                    <field name="user_id"/>
+                    <field name="contact_person_id" />
+                    <field name="class_id" />
+                    <field name="subject_ids" />
+                </list>
+            </field>
+        </record>
+
+    </data>
+</odoo>
