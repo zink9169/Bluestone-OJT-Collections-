@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- Student Sequence -->
+    <record id="seq_student" model="ir.sequence">
+        <field name="name">Student Sequence</field>
+        <field name="code">school.student.sequence</field>
+        <field name="prefix">STD/</field>
+        <field name="padding">4</field>
+    </record>
+
+    <!-- Attendance Sequence -->
+    <record id="seq_attendance" model="ir.sequence">
+        <field name="name">Attendance Sequence</field>
+        <field name="code">school.attendance.sequence</field>
+        <field name="prefix">ATD/%(year)s/%(month)s/</field>
+        <field name="padding">4</field>
+    </record>
+
+</odoo>

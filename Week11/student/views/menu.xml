@@ -1,0 +1,25 @@
+<odoo>
+
+    <menuitem id="menu_school_root" name="School Management"/>
+
+    <menuitem id="menu_school_student"
+              name="Students"
+              parent="menu_school_root"
+              action="action_school_student"/>
+
+    <menuitem id="menu_school_class"
+              name="Classes"
+              parent="menu_school_root"
+              action="action_school_class"/>
+
+    <menuitem id="menu_school_subject"
+              name="Subjects"
+              parent="menu_school_root"
+              action="action_school_subject"/>
+
+    <menuitem id="menu_school_attendance"
+              name="Attendance"
+              parent="menu_school_root"
+              action="action_school_attendance"/>
+
+</odoo>
